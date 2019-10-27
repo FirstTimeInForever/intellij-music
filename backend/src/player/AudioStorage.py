@@ -2,8 +2,9 @@ import os
 import re
 from random import choice
 
+
 class AudioStorage:
-    def __init__(self, samples_dir):
+    def __init__(self, samples_dir: str):
         self.samples = {}
         for root, _, files in os.walk(samples_dir):
             for filename in files:
@@ -19,20 +20,12 @@ class AudioStorage:
         random_key = choice(list(self.samples.keys()))
         return self.samples[random_key]
 
-
     @staticmethod
-    def _load_file(filename):
+    def _load_file(filename: str):
         with open(filename, mode='rb') as file:
             return file.read()
 
     @staticmethod
-    def _parse_filename(filename):
+    def _parse_filename(filename: str):
         matches = re.match(r'([a-zA-Z]+)([0-9]+)', filename)
         return matches.group(1), int(matches.group(2))
-
-
-def __test_stuff():
-    storage = AudioStorage('../audio/acoustic_grand_piano-mp3')
-    pass
-
-# test_stuff()
