@@ -2,7 +2,6 @@ package intellij.music
 
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.jsonBody
-import com.github.kittinunf.fuel.core.isSuccessful
 import com.github.kittinunf.fuel.gson.jsonBody
 import com.intellij.ide.IdeEventQueue
 import com.intellij.openapi.application.ApplicationManager
@@ -27,7 +26,7 @@ class MyApplicationComponent : BaseComponent {
 
         IdeEventQueue.getInstance().addPostprocessor({ e ->
             if (e is KeyEvent) {
-                ApplicationManager.getApplication().invokeLater { onKeyEvent(e) }
+                onKeyEvent(e)
             }
             false
         }, null)
@@ -42,7 +41,9 @@ class MyApplicationComponent : BaseComponent {
             } else {
                 "ru"
             }
-            submitKeyboardEvent(keyChar, keyCode, layout)
+            ApplicationManager.getApplication().executeOnPooledThread {
+                submitKeyboardEvent(keyChar, keyCode, layout)
+            }
         }
     }
 
@@ -50,6 +51,7 @@ class MyApplicationComponent : BaseComponent {
         checkActive()
 
         val event = MusicKeyboardEvent(keyChar, keyCode, layout)
+//        val json = "{\"char\": \"${keyChar}\", \"code\": ${keyCode}, \"layout\": \"${layout}\"}"
         val (request, response, result) = Fuel.post("${baseUrl}/keyboard-event")
             .jsonBody(event)
             .responseString()
