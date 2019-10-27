@@ -15,7 +15,7 @@
     </extensions>
 
     <actions>
-        <action id="IntellijMusic.DebugAction" class="intellij.music.DebugAction"
+        <action id="IntellijMusic.DebugAction" class="intellij.music.MusicDebugAction"
                 text="Music Debug Action" icon="AllIcons.Actions.ShowAsTree">
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>

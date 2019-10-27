@@ -79,7 +79,7 @@ class MyApplicationComponent : BaseComponent {
     }
 
     override fun getComponentName(): String {
-        return "myApplicationComponent"
+        return "musicApplicationComponent"
     }
 
     companion object {
