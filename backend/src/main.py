@@ -1,8 +1,8 @@
 from flask import Flask, request
-from src.controller import AppController
+from src.controller.AppController import AppController
 
 app = Flask(__name__)
-controller = AppController()
+controller = AppController(path='../audio/acoustic_grand_piano-mp3')
 
 
 @app.route('/start', methods=['POST'])
@@ -20,5 +20,7 @@ def stop_listen():
 @app.route('/keyboard-event', methods=['POST'])
 def keyboard_event():
     content = request.json
-    print(f'{content["jope"]}')
+    print(content)
+    controller.play_random()
+    # print(f'{content["jope"]}')
     return '', 200

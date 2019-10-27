@@ -1,6 +1,6 @@
 import os
 import re
-
+from random import choice
 
 class AudioStorage:
     def __init__(self, samples_dir):
@@ -14,6 +14,11 @@ class AudioStorage:
                     self.samples[key] = self._load_file(target_path)
                 else:
                     print(f'Ignoring non .mp3 file: {filename}')
+
+    def get_random_audio(self):
+        random_key = choice(list(self.samples.keys()))
+        return self.samples[random_key]
+
 
     @staticmethod
     def _load_file(filename):
