@@ -1,23 +1,21 @@
 <idea-plugin>
-    <id>intellij.music.untitled</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <id>intellij.music</id>
+    <name>Intellij Music</name>
+    <vendor email="diralik+intellij-music@yandex.ru" url="https://jetbrains.com">JetBrains</vendor>
 
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
+    Play music as you type
     ]]></description>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
     <depends>com.intellij.modules.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
+        <applicationConfigurable displayName="Intellij Music Plugin" instance="intellij.music.MusicConfigurable" />
+        <applicationService serviceImplementation="intellij.music.MusicConfig" />
     </extensions>
 
     <actions>
-        <action id="Music.DebugAction" class="intellij.music.DebugAction"
+        <action id="IntellijMusic.DebugAction" class="intellij.music.DebugAction"
                 text="Music Debug Action" icon="AllIcons.Actions.ShowAsTree">
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
