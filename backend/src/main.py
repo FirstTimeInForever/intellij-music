@@ -22,5 +22,4 @@ def keyboard_event():
     content = request.json
     print(content)
     controller.play_random()
-    # print(f'{content["jope"]}')
     return '', 200
