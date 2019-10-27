@@ -2,6 +2,7 @@ package intellij.music
 
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.jsonBody
+import com.github.kittinunf.fuel.core.isSuccessful
 import com.github.kittinunf.fuel.gson.jsonBody
 import com.intellij.ide.IdeEventQueue
 import com.intellij.openapi.application.ApplicationManager
