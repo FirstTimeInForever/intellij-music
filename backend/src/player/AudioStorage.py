@@ -26,9 +26,8 @@ class AudioStorage:
         return matches.group(1), int(matches.group(2))
 
 
-def test_stuff():
+def __test_stuff():
     storage = AudioStorage('../audio/acoustic_grand_piano-mp3')
     pass
-
 
 # test_stuff()

@@ -1,5 +1,6 @@
-from AudioStorage import AudioStorage
-from AudioPlayer import AudioPlayer
+from src.player.AudioPlayer import AudioPlayer
+from src.player.AudioStorage import AudioStorage
+import sys
 
 
 class AppController:
@@ -8,9 +9,10 @@ class AppController:
         self.audio_player = AudioPlayer()
 
     def play_some(self):
+        print(sys.path)
         print(self.audio_storage.samples.keys())
-        sound = self.audio_storage.samples[('G', 3)]
-        self.audio_player.play_sound(sound)
+        # sound = self.audio_storage.samples[('G', 3)]
+        # self.audio_player.play_sound(sound)
 
 
 def test_stuff():
@@ -19,4 +21,5 @@ def test_stuff():
         controller.play_some()
 
 
-test_stuff()
+if __name__ == '__main__':
+    test_stuff()

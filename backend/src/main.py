@@ -1,6 +1,8 @@
-from flask import Flask, escape, request
+from flask import Flask, request
+from src.controller import AppController
 
 app = Flask(__name__)
+controller = AppController()
 
 
 @app.route('/start', methods=['POST'])
