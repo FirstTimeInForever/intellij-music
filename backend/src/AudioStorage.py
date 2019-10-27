@@ -23,7 +23,7 @@ class AudioStorage:
     @staticmethod
     def _parse_filename(filename):
         matches = re.match(r'([a-zA-Z]+)([0-9]+)', filename)
-        return matches.group(1), matches.group(2)
+        return matches.group(1), int(matches.group(2))
 
 
 def test_stuff():
