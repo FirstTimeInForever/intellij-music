@@ -10,10 +10,14 @@ group = "intellij.music"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    jcenter()
     mavenCentral()
 }
 
 dependencies {
+    implementation("com.github.kittinunf.fuel:fuel:2.2.1")
+    implementation("com.github.kittinunf.fuel:fuel-gson:2.2.1")
+
     implementation(kotlin("stdlib-jdk8"))
     testCompile("junit", "junit", "4.12")
 }

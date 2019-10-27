@@ -10,15 +10,22 @@
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
-    <!-- uncomment to enable plugin in all products
     <depends>com.intellij.modules.lang</depends>
-    -->
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
     </extensions>
 
     <actions>
-        <!-- Add your actions here -->
+        <action id="Music.DebugAction" class="intellij.music.DebugAction"
+                text="Music Debug Action" icon="AllIcons.Actions.ShowAsTree">
+            <add-to-group group-id="ToolbarRunGroup" anchor="first" />
+        </action>
     </actions>
+
+    <application-components>
+        <component>
+            <implementation-class>intellij.music.MyApplicationComponent</implementation-class>
+        </component>
+    </application-components>
 </idea-plugin>
