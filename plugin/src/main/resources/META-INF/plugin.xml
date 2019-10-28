@@ -12,6 +12,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationConfigurable displayName="Intellij Music Plugin" instance="intellij.music.MusicConfigurable" />
         <applicationService serviceImplementation="intellij.music.MusicConfig" />
+        <typedHandler implementation="intellij.music.MusicTypedHandlerDelegate" />
     </extensions>
 
     <actions>
@@ -23,7 +24,7 @@
 
     <application-components>
         <component>
-            <implementation-class>intellij.music.MyApplicationComponent</implementation-class>
+            <implementation-class>intellij.music.MusicApplicationComponent</implementation-class>
         </component>
     </application-components>
 </idea-plugin>

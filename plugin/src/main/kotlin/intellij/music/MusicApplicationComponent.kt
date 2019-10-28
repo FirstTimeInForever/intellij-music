@@ -5,10 +5,14 @@ import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.github.kittinunf.fuel.core.isSuccessful
 import com.github.kittinunf.fuel.gson.jsonBody
 import com.intellij.ide.IdeEventQueue
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.BaseComponent
-import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.diagnostic.Logger
+import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.editor.EditorFactory
+import com.intellij.openapi.editor.ex.EditorEventMulticasterEx
+import com.intellij.openapi.editor.ex.FocusChangeListener
 import org.apache.log4j.Level
 import java.awt.event.KeyEvent
 
@@ -18,18 +22,33 @@ data class MusicKeyboardEvent(
     val layout: String
 )
 
-// or try TypedActionHandler?
-class MyApplicationComponent : BaseComponent {
+class MusicApplicationComponent : BaseComponent {
 
-    private var config: MusicConfig = ServiceManager.getService(MusicConfig::class.java)
+    private var config = MusicConfig.instance
     private var isActivated = false
 
     override fun initComponent() {
         LOG.setLevel(Level.INFO);
         LOG.info("Initializing plugin data structures")
 
+        initFocusListener()
+        initKeyListener()
+    }
+
+    private fun initFocusListener() {
+        val editorEventMulticaster = EditorFactory.getInstance().eventMulticaster as EditorEventMulticasterEx
+        editorEventMulticaster.addFocusChangeListener(object : FocusChangeListener {
+            override fun focusGained(editor: Editor) {}
+
+            override fun focusLost(editor: Editor) {
+                stopMusic()
+            }
+        }, Disposable {})
+    }
+
+    private fun initKeyListener() {
         IdeEventQueue.getInstance().addPostprocessor({ e ->
-            if (e is KeyEvent) {
+            if (e is KeyEvent && config.enabled && !config.onlyInEditor) {
                 onKeyEvent(e)
             }
             false
@@ -37,8 +56,6 @@ class MyApplicationComponent : BaseComponent {
     }
 
     private fun onKeyEvent(e: KeyEvent) {
-        if (!config.enabled) return
-
         val keyChar = e.keyChar
         val keyCode = e.keyCode
         if (e.id == KeyEvent.KEY_PRESSED && keyChar != KeyEvent.CHAR_UNDEFINED) {
@@ -53,8 +70,8 @@ class MyApplicationComponent : BaseComponent {
         }
     }
 
-    private fun submitKeyboardEvent(keyChar: Char, keyCode: Int, layout: String) {
-        checkActivated()
+    fun submitKeyboardEvent(keyChar: Char, keyCode: Int, layout: String) {
+        startMusic()
 
         val event = MusicKeyboardEvent(keyChar, keyCode, layout)
 //        val json = "{\"char\": \"${keyChar}\", \"code\": ${keyCode}, \"layout\": \"${layout}\"}"
@@ -64,11 +81,21 @@ class MyApplicationComponent : BaseComponent {
         assert(response.isSuccessful)
     }
 
-    private fun checkActivated() {
+    private fun startMusic() {
         if (isActivated) return
 
         isActivated = true
         val (request, response, result) = Fuel.post("${baseUrl}/start")
+            .jsonBody("", Charsets.UTF_8)
+            .responseString()
+        assert(response.isSuccessful)
+    }
+
+    private fun stopMusic() {
+        if (!isActivated) return
+
+        isActivated = false
+        val (request, response, result) = Fuel.post("${baseUrl}/stop")
             .jsonBody("", Charsets.UTF_8)
             .responseString()
         assert(response.isSuccessful)
@@ -83,7 +110,7 @@ class MyApplicationComponent : BaseComponent {
     }
 
     companion object {
-        private val LOG = Logger.getInstance(MyApplicationComponent::class.java)
+        private val LOG = Logger.getInstance(MusicApplicationComponent::class.java)
         private const val baseUrl = "http://localhost:5000"
     }
 }

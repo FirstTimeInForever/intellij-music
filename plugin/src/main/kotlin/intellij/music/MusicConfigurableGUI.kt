@@ -17,6 +17,10 @@ class MusicConfigurableGUI {
         enabled!!.isSelected = config.enabled
         onlyInEditor!!.isSelected = config.onlyInEditor
         onlyInEditor!!.isEnabled = config.enabled
+
+        enabled!!.addActionListener { e ->
+            onlyInEditor!!.isEnabled = enabled!!.isSelected
+        }
     }
 
     fun saveToConfig(config: MusicConfig) {
