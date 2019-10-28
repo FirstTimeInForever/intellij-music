@@ -1,10 +1,10 @@
 <idea-plugin>
     <id>intellij.music</id>
     <name>Intellij Music</name>
-    <vendor email="diralik+intellij-music@yandex.ru" url="https://jetbrains.com">JetBrains</vendor>
+    <vendor email="diralik+intellij-music@yandex.ru" url="https://intellij-music.ai">IntelliJ Music</vendor>
 
     <description><![CDATA[
-    Play music as you type
+        When you are typing, there will be ring out a beautiful background music.
     ]]></description>
 
     <depends>com.intellij.modules.lang</depends>
