@@ -2,6 +2,7 @@ package intellij.music.core
 
 import intellij.music.ui.MusicKeyboardEvent
 import java.io.File
+import java.lang.Math.log10
 
 class MidiFileController(midiBackend: MidiBackend, private val keyboardStorage: KeyboardStorage) {
     private val midiFilePlayer: MidiFilePlayer = MidiFilePlayer(midiBackend)
@@ -20,22 +21,22 @@ class MidiFileController(midiBackend: MidiBackend, private val keyboardStorage: 
         apmController.onAction()
     }
 
-    private fun checkActive() {
+    fun checkActive() {
         if (!isActive) {
             isActive = true
             midiFilePlayer.resume()
         }
     }
 
-    private fun onApmUpdate(actionsPerSecond: Float, millisecondsSinceLastAction: Long) {
-        if (millisecondsSinceLastAction > 500) {
+    fun onApmUpdate(actionsPerSecond: Float, millisecondsSinceLastAction: Long) {
+        if (millisecondsSinceLastAction > 300) {
             midiFilePlayer.pause()
             isActive = false
             return
         }
 
         val multiplier = 1f
-        val bpmMultiplier = (actionsPerSecond * multiplier).coerceIn(0.5f, 2f)
+        val bpmMultiplier = (0.7f + log10(1f + actionsPerSecond.toDouble() / 2f)).toFloat()
         midiFilePlayer.setBpmMultiplier(bpmMultiplier)
     }
 }
