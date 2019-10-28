@@ -1,7 +1,6 @@
 package intellij.music.ui
 
 import com.intellij.openapi.options.SearchableConfigurable
-import intellij.music.MusicConfigurableGUI
 import javax.swing.JComponent
 import kotlin.properties.Delegates
 
