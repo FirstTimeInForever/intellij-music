@@ -1,4 +1,4 @@
-package intellij.music
+package intellij.music.ui
 
 import com.intellij.codeInsight.editorActions.TypedHandlerDelegate
 import com.intellij.openapi.components.ServiceManager

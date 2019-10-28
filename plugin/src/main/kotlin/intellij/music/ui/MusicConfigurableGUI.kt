@@ -1,5 +1,6 @@
 package intellij.music
 
+import intellij.music.ui.MusicConfig
 import javax.swing.JCheckBox
 import javax.swing.JPanel
 import javax.swing.JRadioButton

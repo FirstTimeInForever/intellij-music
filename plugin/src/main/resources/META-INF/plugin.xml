@@ -1,22 +1,22 @@
 <idea-plugin>
     <id>intellij.music</id>
     <name>Intellij Music</name>
-    <vendor email="diralik+intellij-music@yandex.ru" url="https://jetbrains.com">JetBrains</vendor>
+    <vendor email="diralik+intellij-music@yandex.ru" url="https://intellij-music.ai">IntelliJ Music</vendor>
 
     <description><![CDATA[
-    Play music as you type
+        When you are typing, there will be ring out a beautiful background music.
     ]]></description>
 
     <depends>com.intellij.modules.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable displayName="Intellij Music Plugin" instance="intellij.music.MusicConfigurable" />
-        <applicationService serviceImplementation="intellij.music.MusicConfig" />
-        <typedHandler implementation="intellij.music.MusicTypedHandlerDelegate" />
+        <applicationConfigurable displayName="Intellij Music Plugin" instance="intellij.music.ui.MusicConfigurable" />
+        <applicationService serviceImplementation="intellij.music.ui.MusicConfig" />
+        <typedHandler implementation="intellij.music.ui.MusicTypedHandlerDelegate" />
     </extensions>
 
     <actions>
-        <action id="IntellijMusic.DebugAction" class="intellij.music.MusicDebugAction"
+        <action id="IntellijMusic.DebugAction" class="intellij.music.ui.MusicDebugAction"
                 text="Music Debug Action" icon="AllIcons.Actions.ShowAsTree">
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
@@ -24,7 +24,7 @@
 
     <application-components>
         <component>
-            <implementation-class>intellij.music.MusicApplicationComponent</implementation-class>
+            <implementation-class>intellij.music.ui.MusicApplicationComponent</implementation-class>
         </component>
     </application-components>
 </idea-plugin>

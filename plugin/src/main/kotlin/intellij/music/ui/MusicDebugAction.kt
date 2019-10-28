@@ -1,4 +1,4 @@
-package intellij.music
+package intellij.music.ui
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
