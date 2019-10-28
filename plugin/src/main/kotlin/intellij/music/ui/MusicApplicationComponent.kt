@@ -1,9 +1,5 @@
 package intellij.music.ui
 
-import com.github.kittinunf.fuel.Fuel
-import com.github.kittinunf.fuel.core.extensions.jsonBody
-import com.github.kittinunf.fuel.core.isSuccessful
-import com.github.kittinunf.fuel.gson.jsonBody
 import com.intellij.ide.IdeEventQueue
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
@@ -20,8 +16,7 @@ import java.awt.event.KeyEvent
 
 class MusicApplicationComponent : BaseComponent {
     private var config = MusicConfig.instance
-    private var isActivated = false
-    private var controller: MusicController = MusicController()
+    val controller: MusicController = MusicController()
 
     override fun initComponent() {
         LOG.setLevel(Level.INFO)
@@ -37,7 +32,7 @@ class MusicApplicationComponent : BaseComponent {
             override fun focusGained(editor: Editor) {}
 
             override fun focusLost(editor: Editor) {
-                stopMusic()
+//                stopMusic()
             }
         }, Disposable {})
     }
@@ -63,8 +58,7 @@ class MusicApplicationComponent : BaseComponent {
             ApplicationManager.getApplication().executeOnPooledThread {
                 val numberModifiers = getNumberModifiers(e)
                 val event = MusicKeyboardEvent(keyChar, keyCode, layout, numberModifiers)
-                this.controller.keyboardPressed(event)
-                submitMusicKeyboardEvent(event)
+                controller.keyboardPressed(event)
             }
         }
     }
@@ -77,35 +71,6 @@ class MusicApplicationComponent : BaseComponent {
         return numberModifiers
     }
 
-    fun submitMusicKeyboardEvent(event: MusicKeyboardEvent) {
-        startMusic()
-
-        val (request, response, result) = Fuel.post("$baseUrl/keyboard-event")
-            .jsonBody(event)
-            .responseString()
-        assert(response.isSuccessful)
-    }
-
-    private fun startMusic() {
-        if (isActivated) return
-
-        isActivated = true
-        val (request, response, result) = Fuel.post("$baseUrl/start")
-            .jsonBody("", Charsets.UTF_8)
-            .responseString()
-        assert(response.isSuccessful)
-    }
-
-    private fun stopMusic() {
-        if (!isActivated) return
-
-        isActivated = false
-        val (request, response, result) = Fuel.post("$baseUrl/stop")
-            .jsonBody("", Charsets.UTF_8)
-            .responseString()
-        assert(response.isSuccessful)
-    }
-
     override fun disposeComponent() {
         LOG.info("Disposing plugin data structures")
     }
@@ -116,6 +81,5 @@ class MusicApplicationComponent : BaseComponent {
 
     companion object {
         private val LOG = Logger.getInstance(MusicApplicationComponent::class.java)
-        private const val baseUrl = "http://localhost:5000"
     }
 }
