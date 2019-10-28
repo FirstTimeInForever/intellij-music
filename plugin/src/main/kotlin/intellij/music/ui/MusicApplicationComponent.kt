@@ -16,12 +16,6 @@ import com.intellij.openapi.editor.ex.FocusChangeListener
 import org.apache.log4j.Level
 import java.awt.event.KeyEvent
 
-data class MusicKeyboardEvent(
-    val char: Char,
-    val code: Int,
-    val layout: String,
-    val numberModifiers: Int
-)
 
 class MusicApplicationComponent : BaseComponent {
 
@@ -29,7 +23,7 @@ class MusicApplicationComponent : BaseComponent {
     private var isActivated = false
 
     override fun initComponent() {
-        LOG.setLevel(Level.INFO);
+        LOG.setLevel(Level.INFO)
         LOG.info("Initializing plugin data structures")
 
         initFocusListener()

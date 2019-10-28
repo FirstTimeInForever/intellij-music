@@ -5,13 +5,14 @@ import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
+import intellij.music.core.MusicAlgorithmType
 
 @State(name = "MusicConfig", storages = [(Storage("MusicConfig.xml"))])
 class MusicConfig : PersistentStateComponent<MusicConfig> {
 
     var enabled: Boolean = true
     var onlyInEditor: Boolean = false
-    var isRandomMusic: Boolean = true
+    var algorithmType: MusicAlgorithmType = MusicAlgorithmType.MARKOV_CHAIN
 
     override fun getState(): MusicConfig = this
 
