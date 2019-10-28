@@ -38,7 +38,7 @@ class ApmController(val onApmUpdate: (apm: Float) -> Unit) {
     }
 
     companion object {
-        const val RECALC_INTERVAL: Long = 200  // milliseconds
+        const val RECALC_INTERVAL: Long = 300  // milliseconds
         const val WINDOW_LENGTH: Long = 3 * 1000  // milliseconds
     }
 }

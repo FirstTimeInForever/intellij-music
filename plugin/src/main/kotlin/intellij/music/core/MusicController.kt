@@ -8,15 +8,16 @@ import java.io.File
  */
 class MusicController {
     private val keyboardStorage: KeyboardStorage = KeyboardStorage(10.0)
-    private val midiPlayer: MidiPlayer = MidiPlayer(File("/home/dima/music/FluidR3 GM.sf2"))
+    private val midiBackend: MidiBackend = MidiBackend(File("/Users/hans/Downloads/FluidR3 GM.sf2"))
+    private val midiFilePlayer: MidiFilePlayer = MidiFilePlayer(midiBackend)
     private val apmController: ApmController = ApmController { apm -> onApmUpdate(apm) }
     private var isActive: Boolean = false
 
     init {
-        val file = File("/home/dima/music-temp/midis/test.mid")
-        midiPlayer.setAudioFile(file)
-        midiPlayer.playFile()
-        midiPlayer.pause()
+        val file = File("/Users/hans/Downloads/Metallica_-_Seek_and_Destroy.mid")
+        midiFilePlayer.setAudioFile(file)
+        midiFilePlayer.playFile()
+        midiFilePlayer.pause()
     }
 
     fun keyboardPressed(event: MusicKeyboardEvent) {
@@ -28,7 +29,7 @@ class MusicController {
     fun checkActive() {
         if (!isActive) {
             isActive = true
-            midiPlayer.resume()
+            midiFilePlayer.resume()
         }
     }
 
@@ -36,12 +37,12 @@ class MusicController {
         System.err.println("apm: $apm")
         val minimalApm = 0.1
         if (apm < minimalApm) {
-            midiPlayer.pause()
+            midiFilePlayer.pause()
             isActive = false
             return
         }
 
         val multiplier = 0.1f
-        midiPlayer.setBpmMultiplier(apm * multiplier)
+        midiFilePlayer.setBpmMultiplier(apm * multiplier)
     }
 }

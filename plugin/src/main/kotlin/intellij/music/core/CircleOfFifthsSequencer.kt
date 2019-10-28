@@ -10,11 +10,12 @@ class CircleOfFifthsSequencer {
     var notesPlayedInCurrentScale = 0
     var notesPlayedInCurrentOctave = 0
 
-    public fun nextNote(): Pair<String, Int> {
+    public fun nextNote(): Int {
 //        tryToChangeScale()
         ++notesPlayedInCurrentScale
         ++notesPlayedInCurrentOctave
-        return shiftIonianNote()
+        val note = shiftIonianNote()
+        return noteToMidi(note)
     }
 
     fun shiftIonianNote(): Pair<String, Int> {
@@ -32,6 +33,12 @@ class CircleOfFifthsSequencer {
         return Pair(scale[previousNote], currentOctave)
     }
 
+    fun noteToMidi(note: Pair<String, Int>): Int {
+        val notes = listOf("C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B")
+        val index = notes.indexOf(note.first)
+        return index + note.second * 22
+    }
+
     fun tryToChangeScale() {
         val otherScale = if (currentScale == "F") {
             "F"
@@ -40,7 +47,7 @@ class CircleOfFifthsSequencer {
         }
         val pr = notesPlayedInCurrentScale * 0.005
         // res = random.choices([True, False], [pr, 1 - pr])
-        // print(f'pr: {pr} pressed: {self.notes_played_in_current_scale} res: {res}')
+        // print(f"pr: {pr} pressed: {self.notes_played_in_current_scale} res: {res}")
         if (Random.nextFloat() < pr) {
             println("Changing scale")
             currentScale = otherScale

@@ -7,23 +7,13 @@ import java.io.InputStream
 import javax.sound.midi.MetaEventListener
 import javax.sound.midi.MidiSystem
 
-
-class MidiPlayer(val soundfontFile: File) {
+class MidiFilePlayer(backend: MidiBackend) {
     private val sequencer = MidiSystem.getSequencer(false)
     private var inputStream: InputStream? = null
-    private var basicBPM: Float = 1f
+    private var baseBpm: Float = 1f
 
     init {
-        createSequencer(soundfontFile)
-    }
-
-    private fun createSequencer(soundfont: File) {
-        val synthesizer = MidiSystem.getSynthesizer()
-        synthesizer.open()
-        synthesizer.unloadAllInstruments(synthesizer.defaultSoundbank)
-        val soundbank = MidiSystem.getSoundbank(soundfont)
-        synthesizer.loadAllInstruments(soundbank)
-        sequencer.transmitter.receiver = synthesizer.receiver
+        sequencer.transmitter.receiver = backend.synthesizer.receiver
         sequencer.open()
     }
 
@@ -33,7 +23,7 @@ class MidiPlayer(val soundfontFile: File) {
     }
 
     fun setBpmMultiplier(multiplier: Float) {
-        sequencer.tempoInBPM = basicBPM * multiplier
+        sequencer.tempoInBPM = baseBpm * multiplier
     }
 
     fun addPlayEndEventListener(callback: () -> Unit) {
@@ -59,20 +49,8 @@ class MidiPlayer(val soundfontFile: File) {
 
     fun playFile(initialBpmMultiplier: Float = 1f) {
         sequencer.setSequence(inputStream)
-        basicBPM = sequencer.tempoInBPM
+        baseBpm = sequencer.tempoInBPM
         setBpmMultiplier(initialBpmMultiplier)
         sequencer.start()
     }
 }
-
-//fun main() {
-//    val player = MidiPlayer()
-//    player.setAudioFile(File("/Users/hans/Downloads/silent_night_easy.mid"))
-//    player.playFile()
-//    player.pause()
-//    player.setBpmMultiplier(2f)
-//    player.addPlayEndEventListener {
-//        System.out.println("Done")
-//        player.unloadBackend()
-//    }
-//}
