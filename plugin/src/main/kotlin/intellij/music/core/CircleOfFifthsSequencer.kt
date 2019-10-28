@@ -36,7 +36,7 @@ class CircleOfFifthsSequencer {
     fun noteToMidi(note: Pair<String, Int>): Int {
         val notes = listOf("C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B")
         val index = notes.indexOf(note.first)
-        return index + note.second * 22
+        return index + note.second * notes.size
     }
 
     fun tryToChangeScale() {

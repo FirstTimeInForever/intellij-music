@@ -28,7 +28,7 @@ class ApmController(val onApmUpdate: (actionsPerSecond: Float, timeSinceLastActi
             while (actionTimes.peekFirst()?.let { currentTime - it > WINDOW_LENGTH } == true) {
                 actionTimes.removeFirst()
             }
-            val millisecondsSinceLastAction = actionTimes.peekFirst()?.let { currentTime - it } ?: 1000
+            val millisecondsSinceLastAction = actionTimes.peekLast()?.let { currentTime - it } ?: 1000
             Pair(actionTimes.size, millisecondsSinceLastAction)
         }
 
