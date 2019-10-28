@@ -13,14 +13,15 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.editor.ex.EditorEventMulticasterEx
 import com.intellij.openapi.editor.ex.FocusChangeListener
+import intellij.music.core.MusicController
 import org.apache.log4j.Level
 import java.awt.event.KeyEvent
 
 
 class MusicApplicationComponent : BaseComponent {
-
     private var config = MusicConfig.instance
     private var isActivated = false
+    private var controller: MusicController = MusicController()
 
     override fun initComponent() {
         LOG.setLevel(Level.INFO)
@@ -62,6 +63,7 @@ class MusicApplicationComponent : BaseComponent {
             ApplicationManager.getApplication().executeOnPooledThread {
                 val numberModifiers = getNumberModifiers(e)
                 val event = MusicKeyboardEvent(keyChar, keyCode, layout, numberModifiers)
+                this.controller.keyboardPressed(event)
                 submitMusicKeyboardEvent(event)
             }
         }
@@ -78,7 +80,6 @@ class MusicApplicationComponent : BaseComponent {
     fun submitMusicKeyboardEvent(event: MusicKeyboardEvent) {
         startMusic()
 
-//        val json = "{\"char\": \"${keyChar}\", \"code\": ${keyCode}, \"layout\": \"${layout}\"}"
         val (request, response, result) = Fuel.post("$baseUrl/keyboard-event")
             .jsonBody(event)
             .responseString()

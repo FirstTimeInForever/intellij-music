@@ -13,7 +13,8 @@ class MusicConfig : PersistentStateComponent<MusicConfig> {
     var enabled: Boolean = true
     var onlyInEditor: Boolean = false
     var algorithmType: MusicAlgorithmType = MusicAlgorithmType.MARKOV_CHAIN
-
+    var isRandomMusic: Boolean = false // TODO: delete
+    
     override fun getState(): MusicConfig = this
 
     override fun loadState(state: MusicConfig) = XmlSerializerUtil.copyBean(state, this)

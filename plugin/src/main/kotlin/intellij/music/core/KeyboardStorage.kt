@@ -13,10 +13,11 @@ class KeyboardStorage(timeInterval: Double) {
     )
 
     private var eventsQueue: Queue<MusicEvent> = ConcurrentLinkedDeque<MusicEvent>()
-    
+
     var interval: Double = timeInterval
     val frequency: Double
         get() = eventsQueue.size / interval
+
 
     fun addEvent(event: MusicKeyboardEvent) {
         val now = Date()
@@ -26,5 +27,6 @@ class KeyboardStorage(timeInterval: Double) {
         }
 
         eventsQueue.add(MusicEvent(now, event))
+        print(frequency)
     }
 }
