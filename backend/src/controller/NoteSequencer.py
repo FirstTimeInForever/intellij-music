@@ -1,4 +1,5 @@
 import random
+import math
 
 notes = {
     'C': ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C'],
@@ -20,6 +21,11 @@ ionian_mode_shifts = [
     [5, 1],
     [1, 2, 3, 4, 5, 6, 7]
 ]
+
+def sign(value):
+    if value < 0:
+        return -1
+    return 1
 
 
 class NoteSequencer:
@@ -67,7 +73,7 @@ class CircleOfFifthsSequencer:
         self.notes_played_in_current_octave = 0
 
     def next_note(self):
-        self._try_to_change_scale()
+        # self._try_to_change_scale()
         self.notes_played_in_current_scale += 1
         self.notes_played_in_current_octave += 1
         return self._shift_ionian_note()
@@ -100,7 +106,9 @@ class CircleOfFifthsSequencer:
         pr = self.notes_played_in_current_octave * 0.1
         # pr *= max(self.current_octave, 1 - self.current_octave)
         if random.random() < pr:
-            self.current_octave += random.choice([-1, +1])
+            pr = abs(3 - self.current_octave) / 7
+            pr *= 2
+            self.current_octave += random.choices([-1, +1], [pr, 1 - pr])[0] * sign(pr)
             self._normalize_octave()
             self.notes_played_in_current_octave = 0
 
