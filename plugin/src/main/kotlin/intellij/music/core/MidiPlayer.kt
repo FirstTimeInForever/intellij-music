@@ -4,15 +4,16 @@ import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
-import javax.sound.midi.*
+import javax.sound.midi.MetaEventListener
+import javax.sound.midi.MidiSystem
 
 
-class MidiPlayer {
+class MidiPlayer(val soundfontFile: File) {
     private val sequencer = MidiSystem.getSequencer(false)
     private var inputStream: InputStream? = null
+    private var basicBPM: Float = 1f
 
     init {
-        val soundfontFile = File("/Users/hans/Downloads/FluidR3 GM.sf2")
         createSequencer(soundfontFile)
     }
 
@@ -32,7 +33,7 @@ class MidiPlayer {
     }
 
     fun setBpmMultiplier(multiplier: Float) {
-        sequencer.tempoInBPM = sequencer.tempoInBPM * multiplier
+        sequencer.tempoInBPM = basicBPM * multiplier
     }
 
     fun addPlayEndEventListener(callback: () -> Unit) {
@@ -52,8 +53,13 @@ class MidiPlayer {
         sequencer.stop()
     }
 
+    fun resume() {
+        sequencer.start()
+    }
+
     fun playFile(initialBpmMultiplier: Float = 1f) {
         sequencer.setSequence(inputStream)
+        basicBPM = sequencer.tempoInBPM
         setBpmMultiplier(initialBpmMultiplier)
         sequencer.start()
     }

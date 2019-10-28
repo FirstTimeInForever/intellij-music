@@ -2,16 +2,19 @@ package intellij.music.core
 
 import java.util.*
 
-class ApmController {
+class ApmController(val onApmUpdate: (apm: Float) -> Unit) {
     init {
         Thread {
-            recalcApm()
-            Thread.sleep(RECALC_INTERVAL)
+            Thread.sleep(5000)
+            while (true) {
+                recalcApm()
+                onApmUpdate(apm)
+                Thread.sleep(RECALC_INTERVAL)
+            }
         }.start()
     }
 
-    private var apm: Long = 1
-        get() = field
+    private var apm: Float = 1f
     private val actionTimes: Deque<Long> = ArrayDeque()
 
     fun onAction() {
@@ -24,18 +27,18 @@ class ApmController {
     private fun recalcApm() {
         val currentTime = System.currentTimeMillis()
         val numberActions = synchronized(this) {
-            while (actionTimes.first?.let { currentTime - it > WINDOW_LENGTH } == true) {
+            while (actionTimes.peekFirst()?.let { currentTime - it > WINDOW_LENGTH } == true) {
                 actionTimes.removeFirst()
             }
             actionTimes.size
         }
 
-        val actionsPerWindow = numberActions / WINDOW_LENGTH
+        val actionsPerWindow = numberActions.toFloat()
         apm = actionsPerWindow
     }
 
     companion object {
-        const val RECALC_INTERVAL: Long = 500  // milliseconds
+        const val RECALC_INTERVAL: Long = 200  // milliseconds
         const val WINDOW_LENGTH: Long = 3 * 1000  // milliseconds
     }
 }
