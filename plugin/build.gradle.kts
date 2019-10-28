@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "intellij.music"
-version = "1.0-SNAPSHOT"
+version = "0.1"
 
 repositories {
     jcenter()
@@ -30,9 +30,7 @@ configure<JavaPluginConvention> {
     sourceCompatibility = JavaVersion.VERSION_1_8
 }
 tasks.getByName<org.jetbrains.intellij.tasks.PatchPluginXmlTask>("patchPluginXml") {
-    changeNotes("""
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>""")
+    changeNotes("""Initial version""")
 }
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"

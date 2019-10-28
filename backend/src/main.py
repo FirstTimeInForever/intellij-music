@@ -1,8 +1,8 @@
 from flask import Flask, request
-from src.controller.AppController import AppController
+from src.controller.RandomController import RandomController
 
 app = Flask(__name__)
-controller = AppController(path='../audio/acoustic_grand_piano-mp3')
+controller = RandomController(path='../audio/acoustic_grand_piano-mp3')
 
 
 @app.route('/start', methods=['POST'])
@@ -19,8 +19,14 @@ def stop_listen():
 
 @app.route('/keyboard-event', methods=['POST'])
 def keyboard_event():
-    content = request.json
-    print(content)
-    # controller.play_random()
-    controller.play_sequenced()
+    '''
+    json:
+    {
+        'code': number
+        'layout': string
+    }
+    :return:
+    '''
+    content = request.get_json()
+    controller.keyboard_pressed(content)
     return '', 200

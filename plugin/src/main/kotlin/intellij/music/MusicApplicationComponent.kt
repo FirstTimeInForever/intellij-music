@@ -7,6 +7,7 @@ import com.github.kittinunf.fuel.gson.jsonBody
 import com.intellij.ide.IdeEventQueue
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.BaseComponent
+import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.diagnostic.Logger
 import org.apache.log4j.Level
 import java.awt.event.KeyEvent
@@ -17,9 +18,11 @@ data class MusicKeyboardEvent(
     val layout: String
 )
 
+// or try TypedActionHandler?
 class MyApplicationComponent : BaseComponent {
 
-    private var active = false
+    private var config: MusicConfig = ServiceManager.getService(MusicConfig::class.java)
+    private var isActivated = false
 
     override fun initComponent() {
         LOG.setLevel(Level.INFO);
@@ -34,6 +37,8 @@ class MyApplicationComponent : BaseComponent {
     }
 
     private fun onKeyEvent(e: KeyEvent) {
+        if (!config.enabled) return
+
         val keyChar = e.keyChar
         val keyCode = e.keyCode
         if (e.id == KeyEvent.KEY_PRESSED && keyChar != KeyEvent.CHAR_UNDEFINED) {
@@ -49,7 +54,7 @@ class MyApplicationComponent : BaseComponent {
     }
 
     private fun submitKeyboardEvent(keyChar: Char, keyCode: Int, layout: String) {
-        checkActive()
+        checkActivated()
 
         val event = MusicKeyboardEvent(keyChar, keyCode, layout)
 //        val json = "{\"char\": \"${keyChar}\", \"code\": ${keyCode}, \"layout\": \"${layout}\"}"
@@ -59,10 +64,10 @@ class MyApplicationComponent : BaseComponent {
         assert(response.isSuccessful)
     }
 
-    private fun checkActive() {
-        if (active) return
+    private fun checkActivated() {
+        if (isActivated) return
 
-        active = true
+        isActivated = true
         val (request, response, result) = Fuel.post("${baseUrl}/start")
             .jsonBody("", Charsets.UTF_8)
             .responseString()
@@ -74,7 +79,7 @@ class MyApplicationComponent : BaseComponent {
     }
 
     override fun getComponentName(): String {
-        return "myApplicationComponent"
+        return "musicApplicationComponent"
     }
 
     companion object {
