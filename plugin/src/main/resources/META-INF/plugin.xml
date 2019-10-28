@@ -10,13 +10,13 @@
     <depends>com.intellij.modules.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable displayName="Intellij Music Plugin" instance="intellij.music.MusicConfigurable" />
-        <applicationService serviceImplementation="intellij.music.MusicConfig" />
-        <typedHandler implementation="intellij.music.MusicTypedHandlerDelegate" />
+        <applicationConfigurable displayName="Intellij Music Plugin" instance="intellij.music.ui.MusicConfigurable" />
+        <applicationService serviceImplementation="intellij.music.ui.MusicConfig" />
+        <typedHandler implementation="intellij.music.ui.MusicTypedHandlerDelegate" />
     </extensions>
 
     <actions>
-        <action id="IntellijMusic.DebugAction" class="intellij.music.MusicDebugAction"
+        <action id="IntellijMusic.DebugAction" class="intellij.music.ui.MusicDebugAction"
                 text="Music Debug Action" icon="AllIcons.Actions.ShowAsTree">
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
@@ -24,7 +24,7 @@
 
     <application-components>
         <component>
-            <implementation-class>intellij.music.MusicApplicationComponent</implementation-class>
+            <implementation-class>intellij.music.ui.MusicApplicationComponent</implementation-class>
         </component>
     </application-components>
 </idea-plugin>

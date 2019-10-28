@@ -1,4 +1,4 @@
-package intellij.music
+package intellij.music.ui
 
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.extensions.jsonBody
@@ -85,7 +85,7 @@ class MusicApplicationComponent : BaseComponent {
         startMusic()
 
 //        val json = "{\"char\": \"${keyChar}\", \"code\": ${keyCode}, \"layout\": \"${layout}\"}"
-        val (request, response, result) = Fuel.post("${baseUrl}/keyboard-event")
+        val (request, response, result) = Fuel.post("$baseUrl/keyboard-event")
             .jsonBody(event)
             .responseString()
         assert(response.isSuccessful)
@@ -95,7 +95,7 @@ class MusicApplicationComponent : BaseComponent {
         if (isActivated) return
 
         isActivated = true
-        val (request, response, result) = Fuel.post("${baseUrl}/start")
+        val (request, response, result) = Fuel.post("$baseUrl/start")
             .jsonBody("", Charsets.UTF_8)
             .responseString()
         assert(response.isSuccessful)
@@ -105,7 +105,7 @@ class MusicApplicationComponent : BaseComponent {
         if (!isActivated) return
 
         isActivated = false
-        val (request, response, result) = Fuel.post("${baseUrl}/stop")
+        val (request, response, result) = Fuel.post("$baseUrl/stop")
             .jsonBody("", Charsets.UTF_8)
             .responseString()
         assert(response.isSuccessful)
