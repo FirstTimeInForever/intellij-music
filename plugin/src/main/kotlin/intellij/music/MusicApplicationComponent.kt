@@ -19,7 +19,8 @@ import java.awt.event.KeyEvent
 data class MusicKeyboardEvent(
     val char: Char,
     val code: Int,
-    val layout: String
+    val layout: String,
+    val numberModifiers: Int
 )
 
 class MusicApplicationComponent : BaseComponent {
@@ -65,15 +66,24 @@ class MusicApplicationComponent : BaseComponent {
                 "ru"
             }
             ApplicationManager.getApplication().executeOnPooledThread {
-                submitKeyboardEvent(keyChar, keyCode, layout)
+                val numberModifiers = getNumberModifiers(e)
+                val event = MusicKeyboardEvent(keyChar, keyCode, layout, numberModifiers)
+                submitMusicKeyboardEvent(event)
             }
         }
     }
 
-    fun submitKeyboardEvent(keyChar: Char, keyCode: Int, layout: String) {
+    private fun getNumberModifiers(e: KeyEvent): Int {
+        var numberModifiers = 0
+        if (e.isControlDown) ++numberModifiers
+        if (e.isAltDown) ++numberModifiers
+        if (e.isMetaDown) ++numberModifiers
+        return numberModifiers
+    }
+
+    fun submitMusicKeyboardEvent(event: MusicKeyboardEvent) {
         startMusic()
 
-        val event = MusicKeyboardEvent(keyChar, keyCode, layout)
 //        val json = "{\"char\": \"${keyChar}\", \"code\": ${keyCode}, \"layout\": \"${layout}\"}"
         val (request, response, result) = Fuel.post("${baseUrl}/keyboard-event")
             .jsonBody(event)

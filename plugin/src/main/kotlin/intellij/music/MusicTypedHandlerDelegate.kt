@@ -14,7 +14,8 @@ class MusicTypedHandlerDelegate : TypedHandlerDelegate() {
     override fun charTyped(char: Char, project: Project, editor: Editor, file: PsiFile): Result {
         if (config.enabled && config.onlyInEditor && editor.editorKind == EditorKind.MAIN_EDITOR) {
             val application = ServiceManager.getService(MusicApplicationComponent::class.java)
-            application.submitKeyboardEvent(char, 0, "en")
+            val event = MusicKeyboardEvent(char, 0, "en", 0)
+            application.submitMusicKeyboardEvent(event)
         }
         return super.charTyped(char, project, editor, file)
     }
