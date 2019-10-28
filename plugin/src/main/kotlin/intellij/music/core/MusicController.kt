@@ -2,6 +2,7 @@ package intellij.music.core
 
 import intellij.music.ui.MusicKeyboardEvent
 import java.io.File
+import kotlin.math.log10
 
 /*
     Base controller class.
@@ -40,8 +41,9 @@ class MusicController {
             return
         }
 
-        val multiplier = 1f
-        val bpmMultiplier = (actionsPerSecond * multiplier).coerceIn(0.5f, 2f)
+//        val multiplier = 1f
+//        val bpmMultiplier = (actionsPerSecond * multiplier).coerceIn(0.5f, 2f)
+        val bpmMultiplier = 0.7f + log10(1f + actionsPerSecond) / 2f
         midiFilePlayer.setBpmMultiplier(bpmMultiplier)
     }
 }

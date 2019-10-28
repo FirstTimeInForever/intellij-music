@@ -40,6 +40,6 @@ class ApmController(val onApmUpdate: (actionsPerSecond: Float, timeSinceLastActi
 
     companion object {
         const val RECALC_INTERVAL: Long = 300  // milliseconds
-        const val WINDOW_LENGTH: Long = 3 * 1000  // milliseconds
+        const val WINDOW_LENGTH: Long = 10 * 1000  // milliseconds
     }
 }
