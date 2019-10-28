@@ -21,5 +21,6 @@ def stop_listen():
 def keyboard_event():
     content = request.json
     print(content)
-    controller.play_random()
+    # controller.play_random()
+    controller.play_sequenced()
     return '', 200
