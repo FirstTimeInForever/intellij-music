@@ -1,6 +1,11 @@
 package intellij.music.core
 
 enum class MusicAlgorithmType {
-    MARKOV_CHAIN,
-    SEQUENTIAL
+    RANDOM,
+    SEQUENTIAL;
+
+
+    fun isRandom(): Boolean {
+        return this == RANDOM
+    }
 }

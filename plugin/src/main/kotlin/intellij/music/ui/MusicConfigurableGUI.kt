@@ -1,5 +1,6 @@
-package intellij.music
+package intellij.music.ui
 
+import intellij.music.core.MusicAlgorithmType
 import intellij.music.ui.MusicConfig
 import javax.swing.JCheckBox
 import javax.swing.JPanel
@@ -13,14 +14,10 @@ class MusicConfigurableGUI {
     private lateinit var musicType1: JRadioButton
     private lateinit var musicType2: JRadioButton
 
-    private fun isRandomMusic(): Boolean {
-        return musicType1.isSelected
-    }
-
     fun isModified(config: MusicConfig): Boolean {
         return enabled.isSelected != config.enabled
                 || onlyInEditor.isSelected != config.onlyInEditor
-                || isRandomMusic() != config.isRandomMusic
+                || musicType1.isSelected != config.algorithmType.isRandom()
     }
 
     fun loadFromConfig(config: MusicConfig) {
@@ -28,8 +25,8 @@ class MusicConfigurableGUI {
         onlyInEditor.isSelected = config.onlyInEditor
         onlyInEditor.isEnabled = config.enabled
 
-        musicType1.isSelected = config.isRandomMusic
-        musicType2.isSelected = !config.isRandomMusic
+        musicType1.isSelected = config.algorithmType == MusicAlgorithmType.RANDOM
+        musicType2.isSelected = !musicType1.isSelected
 
         enabled.addActionListener { e ->
             onlyInEditor.isEnabled = enabled.isSelected
@@ -39,6 +36,10 @@ class MusicConfigurableGUI {
     fun saveToConfig(config: MusicConfig) {
         config.enabled = enabled.isSelected
         config.onlyInEditor = onlyInEditor.isSelected
-        config.isRandomMusic = isRandomMusic()
+        config.algorithmType = if (musicType1.isSelected) {
+            MusicAlgorithmType.RANDOM
+        } else {
+            MusicAlgorithmType.SEQUENTIAL
+        }
     }
 }
