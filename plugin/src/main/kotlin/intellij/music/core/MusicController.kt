@@ -9,7 +9,7 @@ import java.io.File
 class MusicController {
     private val keyboardStorage: KeyboardStorage = KeyboardStorage(10.0)
     private val midiPlayer: MidiPlayer = MidiPlayer(File("/home/dima/music/FluidR3 GM.sf2"))
-    private val apmController: ApmController = ApmController { apm -> onApmUpdate(apm) }
+    private val apmController: ApmController = ApmController(::onApmUpdate)
     private var isActive: Boolean = false
 
     init {
@@ -32,16 +32,15 @@ class MusicController {
         }
     }
 
-    fun onApmUpdate(apm: Float) {
-        System.err.println("apm: $apm")
-        val minimalApm = 0.1
-        if (apm < minimalApm) {
+    fun onApmUpdate(actionsPerSecond: Float, millisecondsSinceLastAction: Long) {
+        if (millisecondsSinceLastAction > 500) {
             midiPlayer.pause()
             isActive = false
             return
         }
 
-        val multiplier = 0.1f
-        midiPlayer.setBpmMultiplier(apm * multiplier)
+        val multiplier = 1f
+        val bpmMultiplier = (actionsPerSecond * multiplier).coerceIn(0.5f, 2f)
+        midiPlayer.setBpmMultiplier(bpmMultiplier)
     }
 }
