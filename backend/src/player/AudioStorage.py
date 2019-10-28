@@ -19,6 +19,8 @@ class AudioStorage:
         random_key = choice(list(self.samples.keys()))
         return self.samples[random_key]
 
+    def get_note(self, note):
+        return self.samples[note]
 
     @staticmethod
     def _load_file(filename):
