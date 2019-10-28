@@ -35,7 +35,6 @@ class ApmController(val onApmUpdate: (actionsPerSecond: Float, timeSinceLastActi
         val actionsPerWindow = numberActions.toFloat()
         val actionsPerSecond = actionsPerWindow / (WINDOW_LENGTH / 1000)
         onApmUpdate(actionsPerSecond, millisecondsSinceLastAction)
-        System.err.println("aps: $actionsPerSecond,  $millisecondsSinceLastAction  ${currentTime % 1000000}")
     }
 
     companion object {

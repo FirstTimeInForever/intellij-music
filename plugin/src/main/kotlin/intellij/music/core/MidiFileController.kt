@@ -2,7 +2,6 @@ package intellij.music.core
 
 import intellij.music.ui.MusicKeyboardEvent
 import java.io.File
-import java.lang.Math.log10
 
 class MidiFileController(midiBackend: MidiBackend, private val keyboardStorage: KeyboardStorage) {
     private val midiFilePlayer: MidiFilePlayer = MidiFilePlayer(midiBackend)
@@ -35,8 +34,21 @@ class MidiFileController(midiBackend: MidiBackend, private val keyboardStorage: 
             return
         }
 
-        val multiplier = 1f
-        val bpmMultiplier = (0.7f + log10(1f + actionsPerSecond.toDouble() / 2f)).toFloat()
+        val bpmMultiplier = calculateBpm(actionsPerSecond).toFloat()
         midiFilePlayer.setBpmMultiplier(bpmMultiplier)
+        System.err.println("aps: $actionsPerSecond  bpm: $bpmMultiplier")
+    }
+
+    fun calculateBpm(actionsPerSecond: Float): Double {
+        return when {
+            actionsPerSecond < 0.2 -> 0.5 + 0.1 * actionsPerSecond / 0.2
+            actionsPerSecond < 0.5 -> 0.6 + 0.1 * (actionsPerSecond - 0.2) / (0.5 - 0.2)
+            actionsPerSecond < 1.0 -> 0.7 + 0.1 * (actionsPerSecond - 0.5) / (1 - 0.5)
+            actionsPerSecond < 3.0 -> 0.8 + 0.1 * (actionsPerSecond - 1) / (3 - 1)
+            actionsPerSecond < 5.0 -> 0.9 + 0.2 * (actionsPerSecond - 3) / (5 - 3)
+            actionsPerSecond < 10 -> 1.1 + 0.2 * (actionsPerSecond - 5) / (10 - 5)
+            else -> 1.3 + 0.1 * (actionsPerSecond - 10) / (30 - 10)
+//            else -> (0.7 + log10(1 + actionsPerSecond / 2))
+        }
     }
 }

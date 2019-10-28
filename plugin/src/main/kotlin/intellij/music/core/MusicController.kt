@@ -2,7 +2,6 @@ package intellij.music.core
 
 import intellij.music.ui.MusicKeyboardEvent
 import java.io.File
-import kotlin.math.log10
 
 /*
     Base controller class.
