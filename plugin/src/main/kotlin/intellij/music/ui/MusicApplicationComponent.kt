@@ -21,7 +21,7 @@ import java.awt.event.KeyEvent
 class MusicApplicationComponent : BaseComponent {
     private var config = MusicConfig.instance
     private var isActivated = false
-    private var controller: MusicController = MusicController()
+    private val controller: MusicController = MusicController()
 
     override fun initComponent() {
         LOG.setLevel(Level.INFO)
@@ -63,7 +63,7 @@ class MusicApplicationComponent : BaseComponent {
             ApplicationManager.getApplication().executeOnPooledThread {
                 val numberModifiers = getNumberModifiers(e)
                 val event = MusicKeyboardEvent(keyChar, keyCode, layout, numberModifiers)
-                this.controller.keyboardPressed(event)
+                controller.keyboardPressed(event)
                 submitMusicKeyboardEvent(event)
             }
         }
