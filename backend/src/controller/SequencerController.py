@@ -12,10 +12,11 @@ class SequencerController(BaseController):
         self.audio_player = AudioPlayer()
 
     def keyboard_pressed(self, key_info: dict):
+        super().keyboard_pressed(key_info)
         note = self.sequencer.next_note()
         print(note)
         try:
             sound = self.audio_storage.get_note(note)
             self.audio_player.play_sound(sound)
         except:
-            print(f'{note} was a failure')
+            print(f"{note} was a failure")

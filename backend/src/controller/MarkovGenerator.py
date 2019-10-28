@@ -1,5 +1,6 @@
 from collections import Counter, defaultdict, namedtuple
 import random
+import mido
 
 Note = namedtuple('Note', ['note', 'duration'])
 
@@ -65,10 +66,6 @@ class MarkovChain:
                 out += _col(to_notes[note])
             out += '\n'
         print(out)
-
-
-
-import mido
 
 
 class Parser:
