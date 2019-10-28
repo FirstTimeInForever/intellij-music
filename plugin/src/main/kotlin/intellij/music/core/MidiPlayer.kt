@@ -35,10 +35,38 @@ class MidiPlayer {
         sequencer.tempoInBPM = sequencer.tempoInBPM * multiplier
     }
 
+    fun addPlayEndEventListener(callback: () -> Unit) {
+        sequencer.addMetaEventListener(MetaEventListener {
+            if(it.type == 0x2f) {
+                callback()
+            }
+        })
+    }
+
+    fun unloadBackend() {
+        inputStream?.close()
+        sequencer.close()
+    }
+
+    fun pause() {
+        sequencer.stop()
+    }
+
     fun playFile(initialBpmMultiplier: Float = 1f) {
-//        sequencer.open()
         sequencer.setSequence(inputStream)
         setBpmMultiplier(initialBpmMultiplier)
         sequencer.start()
     }
 }
+
+//fun main() {
+//    val player = MidiPlayer()
+//    player.setAudioFile(File("/Users/hans/Downloads/silent_night_easy.mid"))
+//    player.playFile()
+//    player.pause()
+//    player.setBpmMultiplier(2f)
+//    player.addPlayEndEventListener {
+//        System.out.println("Done")
+//        player.unloadBackend()
+//    }
+//}
