@@ -15,7 +15,7 @@ class MusicTypedHandlerDelegate : TypedHandlerDelegate() {
         if (config.enabled && config.onlyInEditor && editor.editorKind == EditorKind.MAIN_EDITOR) {
             val application = ServiceManager.getService(MusicApplicationComponent::class.java)
             val event = MusicKeyboardEvent(char, 0, "en", 0)
-            application.submitMusicKeyboardEvent(event)
+            application.controller.keyboardPressed(event)
         }
         return super.charTyped(char, project, editor, file)
     }
