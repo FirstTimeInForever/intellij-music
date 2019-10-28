@@ -1,13 +1,12 @@
 package intellij.music
 
-import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.options.SearchableConfigurable
 import javax.swing.JComponent
 import kotlin.properties.Delegates
 
 class MusicConfigurable : SearchableConfigurable {
     private var gui by Delegates.notNull<MusicConfigurableGUI>()
-    private var config: MusicConfig = ServiceManager.getService(MusicConfig::class.java)
+    private var config: MusicConfig = MusicConfig.instance
 
     override fun isModified(): Boolean {
         return gui.isModified(config)

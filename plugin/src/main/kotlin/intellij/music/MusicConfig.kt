@@ -1,6 +1,7 @@
 package intellij.music
 
 import com.intellij.openapi.components.PersistentStateComponent
+import com.intellij.openapi.components.ServiceManager
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
 import com.intellij.util.xmlb.XmlSerializerUtil
@@ -14,4 +15,9 @@ class MusicConfig : PersistentStateComponent<MusicConfig> {
     override fun getState(): MusicConfig = this
 
     override fun loadState(state: MusicConfig) = XmlSerializerUtil.copyBean(state, this)
+
+    companion object {
+        val instance: MusicConfig
+            get() = ServiceManager.getService(MusicConfig::class.java)
+    }
 }
