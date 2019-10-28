@@ -1,8 +1,10 @@
 from flask import Flask, request
 from src.controller.RandomController import RandomController
+from src.controller.SequencerController import SequencerController
 
 app = Flask(__name__)
-controller = RandomController(path='../audio/acoustic_grand_piano-mp3')
+# controller = RandomController(path='../audio/acoustic_grand_piano-mp3')
+controller = SequencerController(path='../audio/acoustic_grand_piano-mp3')
 
 
 @app.route('/start', methods=['POST'])

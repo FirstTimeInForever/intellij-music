@@ -1,6 +1,6 @@
 from pydub import AudioSegment, playback, effects
 from io import BytesIO
-
+import random
 
 def play_sound(sound, volume=0, speed=None):
     sound += volume
@@ -23,4 +23,4 @@ def speed_change(sound, speed=1.0):
 class AudioPlayer:
     def play_sound(self, raw_sound):
         sound = AudioSegment.from_mp3(BytesIO(raw_sound))
-        play_sound(sound, speed=1.5)
+        play_sound(sound)
