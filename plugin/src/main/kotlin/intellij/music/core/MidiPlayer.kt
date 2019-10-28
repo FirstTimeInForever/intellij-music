@@ -4,7 +4,6 @@ import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
-import java.util.*
 import javax.sound.midi.*
 
 
@@ -42,15 +41,4 @@ class MidiPlayer {
         setBpmMultiplier(initialBpmMultiplier)
         sequencer.start()
     }
-}
-
-fun main() {
-    val player = MidiPlayer()
-    player.setAudioFile(File("/Users/hans/Downloads/Metallica_-_Seek_and_Destroy.mid"))
-    player.playFile()
-//    Timer().schedule(object : TimerTask() {
-//        override fun run() {
-//            player.setBpmMultiplier(4f)
-//        }
-//    }, 5000)
 }
