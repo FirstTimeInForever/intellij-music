@@ -14,12 +14,8 @@ class MusicController {
     private val userDirectoryPath = Paths.get(System.getProperty("user.home"), "my-midis")
     private val userFiles = UserDirectoryLoader(userDirectoryPath.toFile())
     private val midiBackend: MidiBackend = MidiBackend(userFiles.soundFontFile!!)
-    private val midiFileController = MidiFileController(midiBackend, keyboardStorage)
+    private val midiFileController = MidiFileController(midiBackend, keyboardStorage, userFiles.userFiles)
     private val randomNotesController = RandomNotesController(midiBackend)
-
-    init {
-        midiFileController.setFile(userFiles.userFiles.first())
-    }
 
     fun keyboardPressed(event: MusicKeyboardEvent) {
         when (config.algorithmType) {

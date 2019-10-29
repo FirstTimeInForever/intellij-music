@@ -3,10 +3,29 @@ package intellij.music.core
 import intellij.music.ui.MusicKeyboardEvent
 import java.io.File
 
-class MidiFileController(midiBackend: MidiBackend, private val keyboardStorage: KeyboardStorage) {
+class MidiFileController(midiBackend: MidiBackend,
+                         private val keyboardStorage: KeyboardStorage,
+                         private val userFiles: MutableList<File>) {
     private val midiFilePlayer: MidiFilePlayer = MidiFilePlayer(midiBackend)
     private val apmController: ApmController = ApmController(::onApmUpdate)
     private var isActive: Boolean = false
+    private var currentFileIndex: Int = -1
+
+    init {
+        nextTrack()
+        midiFilePlayer.addPlayEndEventListener {
+            nextTrack()
+        }
+    }
+
+    fun nextTrack() {
+        currentFileIndex += 1
+        if(currentFileIndex >= userFiles.size) {
+            currentFileIndex = 0
+        }
+        System.out.println(userFiles[currentFileIndex].toString())
+        setFile(userFiles[currentFileIndex])
+    }
 
     fun setFile(file: File) {
         midiFilePlayer.setAudioFile(file)
