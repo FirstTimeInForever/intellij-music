@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>intellij.music</id>
     <name>Fancy Music</name>
-    <vendor email="diralik+fancy-music@yandex.ru" url="https://fancy-music.ai">Fancy Music</vendor>
+    <vendor email="diralik+fancy-music@yandex.ru" url="https://github.com/FirstTimeInForever/intellij-music">Fancy Music</vendor>
 
     <description><![CDATA[
         When you are typing, there will be ring out a beautiful background music.
