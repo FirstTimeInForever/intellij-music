@@ -14,6 +14,10 @@ class MidiFileController(midiBackend: MidiBackend, private val keyboardStorage: 
         midiFilePlayer.pause()
     }
 
+    fun stop() {
+        midiFilePlayer.pause()
+    }
+
     fun keyboardPressed(event: MusicKeyboardEvent) {
         checkActive()
         keyboardStorage.addEvent(event)
