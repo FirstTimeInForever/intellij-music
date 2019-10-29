@@ -5,6 +5,7 @@
 ![](https://img.shields.io/github/license/FirstTimeInForever/intellij-music?style=flat)
 ![](https://img.shields.io/github/forks/FirstTimeInForever/intellij-music)
 
+[![CircleCI](https://circleci.com/gh/FirstTimeInForever/intellij-music.svg?style=svg)](https://circleci.com/gh/FirstTimeInForever/intellij-music)
 ![](https://img.shields.io/github/v/tag/firsttimeinforever/intellij-music?include_prereleases)
 ![GitHub contributors](https://img.shields.io/github/contributors/firsttimeinforever/intellij-music)
 ![](https://img.shields.io/github/last-commit/firsttimeinforever/intellij-music)
