@@ -18,8 +18,10 @@ class MusicConfigurableGUI {
     private lateinit var enabled: JCheckBox
     private lateinit var onlyInEditor: JCheckBox
 
-    private lateinit var musicType1: JRadioButton
-    private lateinit var musicType2: JRadioButton
+    private lateinit var musicTypeRandomMinor: JRadioButton
+    private lateinit var musicTypeRandomMajor: JRadioButton
+    private lateinit var musicTypeRandomBoth: JRadioButton
+    private lateinit var musicTypeMidi: JRadioButton
     private lateinit var midiDirChoose: TextFieldWithBrowseButton
 
     init {
@@ -29,14 +31,14 @@ class MusicConfigurableGUI {
         }
 
         enabled.addActionListener { updateEnabled() }
-        musicType2.addActionListener { updateEnabled() }
+        musicTypeMidi.addActionListener { updateEnabled() }
     }
 
     private fun onSelectDirectory(directory: String) {
         val file = File(directory)
         val midiFiles = file.listFiles { midiFile -> midiFile.extension == "mid" }
         if (midiFiles?.isEmpty() == true) {
-            Messages.showMessageDialog(null, "Please select directory which contains midi files", "Fancy Music", Messages.getInformationIcon());
+            Messages.showMessageDialog(null, "Please select directory which contains midi files", "Fancy Music", Messages.getInformationIcon())
             return
         }
 
@@ -60,7 +62,7 @@ class MusicConfigurableGUI {
     fun isModified(config: MusicConfig): Boolean {
         return enabled.isSelected != config.enabled
                 || onlyInEditor.isSelected != config.onlyInEditor
-                || musicType1.isSelected != config.algorithmType.isRandom()
+                || currentAlgorithmType() != config.algorithmType
                 || midiDirChoose.text != config.midiDir
     }
 
@@ -70,8 +72,10 @@ class MusicConfigurableGUI {
         enabled.isSelected = config.enabled
         onlyInEditor.isSelected = config.onlyInEditor
 
-        musicType1.isSelected = config.algorithmType == MusicAlgorithmType.RANDOM
-        musicType2.isSelected = !musicType1.isSelected
+        musicTypeRandomMinor.isSelected = config.algorithmType == MusicAlgorithmType.RANDOM_MINOR
+        musicTypeRandomMajor.isSelected = config.algorithmType == MusicAlgorithmType.RANDOM_MAJOR
+        musicTypeRandomBoth.isSelected = config.algorithmType == MusicAlgorithmType.RANDOM_BOTH
+        musicTypeMidi.isSelected = config.algorithmType == MusicAlgorithmType.SEQUENTIAL
 
         updateEnabled()
     }
@@ -79,20 +83,28 @@ class MusicConfigurableGUI {
     private fun updateEnabled() {
         val isEnabled = enabled.isSelected
         onlyInEditor.isEnabled = isEnabled
-        musicType1.isEnabled = isEnabled
-        musicType2.isEnabled = isEnabled
-        midiDirChoose.isEnabled = isEnabled && musicType2.isSelected
+        musicTypeRandomMinor.isEnabled = isEnabled
+        musicTypeRandomMajor.isEnabled = isEnabled
+        musicTypeRandomBoth.isEnabled = isEnabled
+        musicTypeMidi.isEnabled = isEnabled
+        midiDirChoose.isEnabled = isEnabled && musicTypeMidi.isSelected
     }
 
     fun saveToConfig(config: MusicConfig) {
         config.enabled = enabled.isSelected
         config.onlyInEditor = onlyInEditor.isSelected
-        config.algorithmType = if (musicType1.isSelected) {
-            MusicAlgorithmType.RANDOM
-        } else {
-            MusicAlgorithmType.SEQUENTIAL
-        }
+        config.algorithmType = currentAlgorithmType()
 
         config.midiDir = midiDirChoose.text
+    }
+
+    private fun currentAlgorithmType(): MusicAlgorithmType {
+        return when {
+            musicTypeRandomMinor.isSelected -> MusicAlgorithmType.RANDOM_MINOR
+            musicTypeRandomMajor.isSelected -> MusicAlgorithmType.RANDOM_MAJOR
+            musicTypeRandomBoth.isSelected -> MusicAlgorithmType.RANDOM_BOTH
+            musicTypeMidi.isSelected -> MusicAlgorithmType.SEQUENTIAL
+            else -> throw RuntimeException("Unreachable")
+        }
     }
 }

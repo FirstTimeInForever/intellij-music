@@ -16,6 +16,8 @@ class UserDirectoryLoader {
     private val soundFontFile = File(pluginDirectory, "soundfont.sf2")
     val userFiles = mutableListOf<File>()
 
+    private val midiDirectoryWatcher = MidiDirectoryWatcher(this::reindexFiles)
+
     private val userDirectory
         get() = File(config.midiDir)
 
@@ -35,9 +37,10 @@ class UserDirectoryLoader {
         if (soundFontFile.exists() && userFiles.isNotEmpty()) {
             onSoundFontLoaded(soundFontFile)
         } else {
-            config.midiDir = userDirectory.toString()
+            config.midiDir = defaultMidiDir.toString()
             downloadFontAndMidiFiles(onSoundFontLoaded)
         }
+        midiDirectoryWatcher.setDirectory(userDirectory)
     }
 
     private fun downloadFile(url: String, file: File) {
@@ -75,6 +78,11 @@ class UserDirectoryLoader {
         userFiles.clear()
         userFiles.addAll(files)
         userFiles.shuffle()
+    }
+
+    fun reloadMidiFilesDirectory() {
+        midiDirectoryWatcher.setDirectory(userDirectory)
+        reindexFiles()
     }
 
     companion object {

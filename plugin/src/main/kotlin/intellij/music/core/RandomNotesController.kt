@@ -5,7 +5,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class RandomNotesController(midiBackend: MidiBackend) {
-    private val notesPlayer = MidiNotesPlayer(midiBackend)
+    val notesPlayer = MidiNotesPlayer(midiBackend)
     private val circleSequencer = CircleOfFifthsSequencer()
 
     private var lastNoteTime = Date()
