@@ -3,7 +3,7 @@ package intellij.music.core
 
 class CircleOfFifthsSequencer {
     private var previousNote = Pair("C", 3)
-    private val modes: List<ScaleSequencer> = listOf(IonianScaleSequencer())
+    private val modes: List<ScaleSequencer> = listOf(MajorScaleSequencer())
     private var currentModeIndex = 0
 
     fun nextNote(): Int {

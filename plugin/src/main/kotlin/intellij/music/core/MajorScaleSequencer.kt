@@ -2,7 +2,7 @@ package intellij.music.core
 
 import kotlin.random.Random
 
-class IonianScaleSequencer: ScaleSequencer {
+class MajorScaleSequencer: ScaleSequencer {
     private var currentScale = "C"
     private var notesPlayedInScale = 0
     private var notesPlayedInOctave = 0
@@ -44,15 +44,10 @@ class IonianScaleSequencer: ScaleSequencer {
     }
 
     private fun tryToChangeScale() {
-        val otherScale = if (currentScale == "F") {
-            "F"
-        }
-        else {
-            "C"
-        }
-        val pr = notesPlayedInScale * 0.005
+        val pr = notesPlayedInScale * 0.001
         if (Random.nextFloat() < pr) {
-            currentScale = otherScale
+            currentScale = MidiNotes.scaleNotes.keys.random()
+            println("Changed scale to: $currentScale")
             notesPlayedInScale = 0
         }
     }
