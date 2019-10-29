@@ -10,6 +10,14 @@
 ![](https://img.shields.io/github/last-commit/firsttimeinforever/intellij-music)
 
 
+Play fancy music based on your keyboard activity.
+
+## Description
+This plugin plays random notes from random major scales based on your typing speed. Everytime you press the key, it plays random piano note based on some music theory.
+
+Also, this plugin can play your custom midi files! Just put into your midi directory!
+
+
 ## Build instructions
 Create directory for soundfont and midi files:
 ```
