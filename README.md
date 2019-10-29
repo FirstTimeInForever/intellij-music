@@ -1,4 +1,5 @@
 # intellij-music
+![](https://img.shields.io/github/stars/FirstTimeInForever/intellij-music?style=plastic)
 
 ## Инструкция по сборке и запуске проекта
 ```
