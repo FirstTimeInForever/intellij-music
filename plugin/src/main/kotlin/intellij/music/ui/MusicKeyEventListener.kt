@@ -4,7 +4,7 @@ import com.intellij.ide.IdeEventQueue
 import java.awt.event.KeyEvent
 
 class MusicKeyEventListener {
-    private var config = MusicConfig.instance
+    private val config = MusicConfig.instance
 
     fun initKeyListener() {
         IdeEventQueue.getInstance().addPostprocessor({ e ->

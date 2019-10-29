@@ -4,16 +4,20 @@ import com.intellij.openapi.progress.PerformInBackgroundOption
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
+import intellij.music.ui.MusicConfig
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
 import java.nio.channels.Channels
 
 class UserDirectoryLoader {
-    private val userDirectory = File(System.getProperty("user.home"), "my-midis")
-    private val pluginDirectory = File(System.getProperty("user.home"), ".intellij-fancy-music-plugin")
+    private val config = MusicConfig.instance
+    private val pluginDirectory = defaultMidiDir
     private val soundFontFile = File(pluginDirectory, "soundfont.sf2")
     val userFiles = mutableListOf<File>()
+
+    private val userDirectory
+        get() = File(config.midiDir)
 
     init {
         println("User directory path: $userDirectory")
@@ -27,11 +31,12 @@ class UserDirectoryLoader {
     }
 
     fun initSoundFont(onSoundFontLoaded: (File) -> Unit) {
-        if (soundFontFile.exists()) {
-            reindexFiles()
+        reindexFiles()
+        if (soundFontFile.exists() && userFiles.isNotEmpty()) {
             onSoundFontLoaded(soundFontFile)
         } else {
-            loadFontFile(onSoundFontLoaded)
+            config.midiDir = userDirectory.toString()
+            downloadFontAndMidiFiles(onSoundFontLoaded)
         }
     }
 
@@ -42,7 +47,7 @@ class UserDirectoryLoader {
         fos.channel.transferFrom(rbc, 0, java.lang.Long.MAX_VALUE)
     }
 
-    private fun loadFontFile(onSoundFontLoaded: (File) -> Unit) {
+    private fun downloadFontAndMidiFiles(onSoundFontLoaded: (File) -> Unit) {
         ProgressManager.getInstance().run(object : Task.Backgroundable(
             null,
             "Fancy Music: Downloading sound font...",
@@ -64,16 +69,17 @@ class UserDirectoryLoader {
     }
 
     fun reindexFiles() {
+        val files: Array<File> = userDirectory.listFiles { file -> !file.isDirectory && file.extension == "mid" } ?: emptyArray()
+        println("Reindex, found files:  ${files.map { it.name }}")
+
         userFiles.clear()
-        for(file in userDirectory.listFiles()) {
-//            System.out.println(file.extension)
-            if(!file.isDirectory && file.extension == "mid") {
-                userFiles.add(file)
-            }
-        }
+        userFiles.addAll(files)
+        userFiles.shuffle()
     }
 
     companion object {
+        val defaultMidiDir = File(System.getProperty("user.home"), ".intellij-fancy-music-plugin")
+
         const val soundFontUrl = "https://raw.githubusercontent.com/urish/cinto/master/media/FluidR3%20GM.sf2"
         const val initialMidiFilesUrl = "https://raw.githubusercontent.com/FirstTimeInForever/intellij-music/master/plugin/assets/"
         val initialMidiFiles = listOf(

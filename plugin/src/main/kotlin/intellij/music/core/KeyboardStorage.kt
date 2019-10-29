@@ -27,6 +27,6 @@ class KeyboardStorage(timeInterval: Double) {
         }
 
         eventsQueue.add(MusicEvent(now, event))
-        print(frequency)
+//        print(frequency)
     }
 }
