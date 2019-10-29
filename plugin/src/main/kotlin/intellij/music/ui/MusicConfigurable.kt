@@ -22,7 +22,7 @@ class MusicConfigurable : SearchableConfigurable {
 
     override fun apply() {
         gui.saveToConfig(config)
-        MusicApplicationComponent.instance.controller.reloadMidiFilesDirectory()
+        MusicApplicationComponent.instance.controller.onSettingsChanged()
     }
 
     override fun createComponent(): JComponent? {

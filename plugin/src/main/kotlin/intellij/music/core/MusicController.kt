@@ -43,10 +43,16 @@ class MusicController {
         midiFileController.nextTrack()
     }
 
-    fun reloadMidiFilesDirectory() {
-        userFiles.reindexFiles()
+    private fun reloadMidiFilesDirectory() {
+        userFiles.reloadMidiFilesDirectory()
         if (config.algorithmType == MusicAlgorithmType.SEQUENTIAL) {
             midiFileController.setRandomTrack()
         }
+    }
+
+    fun onSettingsChanged() {
+        reloadMidiFilesDirectory()
+        randomNotesController.notesPlayer.ensureResetNotes()
+        midiBackend.reload()
     }
 }
