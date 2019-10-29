@@ -16,8 +16,14 @@ class MusicController {
     private val midiBackend: MidiBackend = MidiBackend(userFiles.soundFontFile!!)
     private val midiFileController = MidiFileController(midiBackend, keyboardStorage, userFiles.userFiles)
     private val randomNotesController = RandomNotesController(midiBackend)
+    var isMuted = false
+        get() = field
+
 
     fun keyboardPressed(event: MusicKeyboardEvent) {
+        if(isMuted) {
+            return
+        }
         when (config.algorithmType) {
             MusicAlgorithmType.RANDOM -> randomNotesController.keyboardPressed(event)
             MusicAlgorithmType.SEQUENTIAL -> midiFileController.keyboardPressed(event)
@@ -26,5 +32,9 @@ class MusicController {
 
     fun nextTrack() {
         midiFileController.nextTrack()
+    }
+
+    fun setMuteState(state: Boolean) {
+        isMuted = state
     }
 }
