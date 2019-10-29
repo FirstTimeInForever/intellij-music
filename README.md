@@ -7,7 +7,6 @@
 
 ![](https://img.shields.io/github/v/tag/firsttimeinforever/intellij-music?include_prereleases)
 ![GitHub contributors](https://img.shields.io/github/contributors/firsttimeinforever/intellij-music)
-![](https://img.shields.io/github/commit-activity/w/firsttimeinforever/intellij-music)
 ![](https://img.shields.io/github/last-commit/firsttimeinforever/intellij-music)
 
 ## Инструкция по сборке и запуске проекта
