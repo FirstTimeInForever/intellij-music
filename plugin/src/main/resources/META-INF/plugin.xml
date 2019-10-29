@@ -16,7 +16,7 @@
     </extensions>
 
     <actions>
-        <action id="IntellijMusic.NextTrackAction" class="intellij.music.ui.MusicNextTrackAction"
+        <action id="IntellijMusic.NextTrackAction" class="intellij.music.ui.NextTrackAction"
                 text="Fancy Music Next Track" icon="AllIcons.Actions.ShowAsTree">
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
