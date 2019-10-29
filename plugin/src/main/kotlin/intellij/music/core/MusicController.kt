@@ -34,8 +34,8 @@ class MusicController {
         }
 
         when (config.algorithmType) {
-            MusicAlgorithmType.RANDOM -> randomNotesController.keyboardPressed(event)
             MusicAlgorithmType.SEQUENTIAL -> midiFileController.keyboardPressed(event)
+            else -> randomNotesController.keyboardPressed(event)
         }
     }
 

@@ -13,7 +13,7 @@ class MusicConfig : PersistentStateComponent<MusicConfig> {
 
     var enabled: Boolean = true
     var onlyInEditor: Boolean = false
-    var algorithmType: MusicAlgorithmType = MusicAlgorithmType.RANDOM
+    var algorithmType = MusicAlgorithmType.RANDOM_MINOR
     var midiDir: String = UserDirectoryLoader.defaultMidiDir.toString()
 
     override fun getState(): MusicConfig = this

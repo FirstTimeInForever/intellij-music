@@ -24,8 +24,6 @@
                 text="Fancy Music: Toggle Mute" icon="AllIcons.Debugger.MuteBreakpoints">
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
-        <action id="IntellijMusic.SwitchMusicTypeAction" class="intellij.music.ui.actions.SwitchMusicTypeAction"
-                text="Fancy Music: Switch Music Type (Random/Sequential)" />
     </actions>
 
     <application-components>
