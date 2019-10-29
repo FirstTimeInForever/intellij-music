@@ -74,6 +74,7 @@ class UserDirectoryLoader {
 
         userFiles.clear()
         userFiles.addAll(files)
+        userFiles.shuffle()
     }
 
     companion object {
