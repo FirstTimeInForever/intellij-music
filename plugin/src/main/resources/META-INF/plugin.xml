@@ -16,12 +16,12 @@
     </extensions>
 
     <actions>
-        <action id="IntellijMusic.DebugAction" class="intellij.music.ui.MusicDebugAction"
-                text="Music Debug Action" icon="AllIcons.Actions.ShowAsTree">
+        <action id="IntellijMusic.NextTrackAction" class="intellij.music.ui.MusicNextTrackAction"
+                text="Fancy Music Next Track" icon="AllIcons.Actions.ShowAsTree">
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
-        <action id="IntellijMusic.NextTrackAction" class="intellij.music.ui.MusicNextTrackAction"
-                text="Music Next Track Action" icon="AllIcons.Actions.ShowAsTree">
+        <action id="IntellijMusic.MuteAction" class="intellij.music.ui.MuteAction"
+                text="Fancy Music Toggle Mute" icon="AllIcons.Actions.ShowAsTree">
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
     </actions>

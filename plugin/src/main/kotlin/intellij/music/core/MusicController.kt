@@ -17,6 +17,9 @@ class MusicController {
     private lateinit var midiFileController: MidiFileController
     private lateinit var randomNotesController: RandomNotesController
 
+    var isMuted = false
+        get() = field
+
     init {
         userFiles.initSoundFont(::onSoundFontLoaded)
     }
@@ -29,8 +32,12 @@ class MusicController {
     }
 
     fun keyboardPressed(event: MusicKeyboardEvent) {
-        if (!isSoundFontLoaded) return
-
+        if (!isSoundFontLoaded) {
+            return
+        }
+        if(isMuted) {
+            return
+        }
         when (config.algorithmType) {
             MusicAlgorithmType.RANDOM -> randomNotesController.keyboardPressed(event)
             MusicAlgorithmType.SEQUENTIAL -> midiFileController.keyboardPressed(event)
@@ -39,5 +46,9 @@ class MusicController {
 
     fun nextTrack() {
         midiFileController.nextTrack()
+    }
+
+    fun setMuteState(state: Boolean) {
+        isMuted = state
     }
 }
