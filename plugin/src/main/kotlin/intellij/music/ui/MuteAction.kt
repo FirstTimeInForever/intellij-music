@@ -7,10 +7,10 @@ class MuteAction : ToggleAction() {
     private var config: MusicConfig = MusicConfig.instance
 
     override fun isSelected(e: AnActionEvent): Boolean {
-        return config.enabled
+        return !config.enabled
     }
 
     override fun setSelected(e: AnActionEvent, state: Boolean) {
-        config.enabled = state
+        config.enabled = !state
     }
 }

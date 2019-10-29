@@ -17,11 +17,11 @@
 
     <actions>
         <action id="IntellijMusic.NextTrackAction" class="intellij.music.ui.NextTrackAction"
-                text="Fancy Music Next Track" icon="AllIcons.Actions.ShowAsTree">
+                text="Fancy Music Next Track" icon="AllIcons.Icons.Ide.NextStep">
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
         <action id="IntellijMusic.MuteAction" class="intellij.music.ui.MuteAction"
-                text="Fancy Music Toggle Mute" icon="AllIcons.Actions.ShowAsTree">
+                text="Fancy Music Toggle Mute" icon="AllIcons.Debugger.MuteBreakpoints">
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
     </actions>

@@ -8,7 +8,9 @@ import intellij.music.core.MusicAlgorithmType
 import org.jetbrains.annotations.NonNls
 import java.awt.Component
 import java.io.File
-import javax.swing.*
+import javax.swing.JCheckBox
+import javax.swing.JPanel
+import javax.swing.JRadioButton
 
 class MusicConfigurableGUI {
     lateinit var rootPanel: JPanel
@@ -19,20 +21,18 @@ class MusicConfigurableGUI {
     private lateinit var musicType2: JRadioButton
     private lateinit var midiDirChoose: TextFieldWithBrowseButton
 
-
     init {
         midiDirChoose.addActionListener { e ->
-            @NonNls val path = midiDirChoose.getText().trim({ it <= ' ' })
+            @NonNls val path = midiDirChoose.text.trim { it <= ' ' }
             selectDirectory(
                 path,
-                {s -> midiDirChoose.setText(s) },
+                { s -> midiDirChoose.text = s },
                 rootPanel
             )
         }
     }
 
-
-    fun selectDirectory(
+    private fun selectDirectory(
         path: String,
         dirConsumer: (String) -> Unit,
         component: Component?
@@ -53,7 +53,6 @@ class MusicConfigurableGUI {
         dirConsumer(resultPath)
     }
 
-
     fun isModified(config: MusicConfig): Boolean {
         return enabled.isSelected != config.enabled
                 || onlyInEditor.isSelected != config.onlyInEditor
@@ -61,22 +60,26 @@ class MusicConfigurableGUI {
                 || midiDirChoose.text != config.midiDir
     }
 
-
     fun loadFromConfig(config: MusicConfig) {
-        midiDirChoose.setText(config.midiDir)
+        midiDirChoose.text = config.midiDir
 
         enabled.isSelected = config.enabled
         onlyInEditor.isSelected = config.onlyInEditor
-        onlyInEditor.isEnabled = config.enabled
 
         musicType1.isSelected = config.algorithmType == MusicAlgorithmType.RANDOM
         musicType2.isSelected = !musicType1.isSelected
 
-        enabled.addActionListener { e ->
-            onlyInEditor.isEnabled = enabled.isSelected
-        }
+        enabled.addActionListener { e -> updateEnabled() }
+        updateEnabled()
     }
 
+    private fun updateEnabled() {
+        val isEnabled = enabled.isSelected
+        onlyInEditor.isEnabled = isEnabled
+        musicType1.isEnabled = isEnabled
+        musicType2.isEnabled = isEnabled
+        midiDirChoose.isEnabled = isEnabled
+    }
 
     fun saveToConfig(config: MusicConfig) {
         config.enabled = enabled.isSelected
