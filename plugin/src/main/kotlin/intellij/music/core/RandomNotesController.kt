@@ -12,10 +12,16 @@ class RandomNotesController(midiBackend: MidiBackend) {
 
     fun keyboardPressed(event: MusicKeyboardEvent) {
         val diff = TimeUnit.MILLISECONDS.toMillis(Date().time - lastNoteTime.time)
-        if(diff > 130) {
-            notesPlayer.playNote(circleSequencer.nextNote(), BASE_NOTE_VELOCITY)
-            lastNoteTime = Date()
+        if(diff < 130) {
+            return
         }
+        if(event.numberModifiers != 0) {
+            notesPlayer.playChord(circleSequencer.getChord(), BASE_NOTE_VELOCITY * 2)
+            circleSequencer.nextNote()
+            return
+        }
+        notesPlayer.playNote(circleSequencer.nextNote(), BASE_NOTE_VELOCITY)
+        lastNoteTime = Date()
     }
 
     companion object {

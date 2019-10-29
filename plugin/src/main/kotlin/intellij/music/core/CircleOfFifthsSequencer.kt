@@ -18,6 +18,13 @@ class CircleOfFifthsSequencer {
         return noteToMidi(note)
     }
 
+    public fun getChord(): List<Int> {
+        var base = noteToMidi(Pair<String, Int>(notes[currentScale]!![0], currentOctave))
+        var third = noteToMidi(Pair<String, Int>(notes[currentScale]!![2], currentOctave))
+        var fifth = noteToMidi(Pair<String, Int>(notes[currentScale]!![5], currentOctave))
+        return listOf(base, third, fifth)
+    }
+
     fun shiftIonianNote(): Pair<String, Int> {
         if (ionianModeShifts[previousNote].isNotEmpty()) {
             previousNote = ionianModeShifts[previousNote].random()

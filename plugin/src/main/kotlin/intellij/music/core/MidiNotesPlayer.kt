@@ -15,4 +15,10 @@ class MidiNotesPlayer(backend: MidiBackend) {
         channel.noteOn(note, velocity)
         prevNote = note
     }
+
+    fun playChord(notes: List<Int>, velocity: Int) {
+        for(note in notes) {
+            channel.noteOn(note, velocity)
+        }
+    }
 }
