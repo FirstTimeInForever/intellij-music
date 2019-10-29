@@ -20,6 +20,10 @@
                 text="Music Debug Action" icon="AllIcons.Actions.ShowAsTree">
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
+        <action id="IntellijMusic.NextTrackAction" class="intellij.music.ui.MusicNextTrackAction"
+                text="Music Next Track Action" icon="AllIcons.Actions.ShowAsTree">
+            <add-to-group group-id="ToolbarRunGroup" anchor="first" />
+        </action>
     </actions>
 
     <application-components>

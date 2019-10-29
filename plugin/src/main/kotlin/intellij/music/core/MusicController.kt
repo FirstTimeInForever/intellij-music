@@ -23,4 +23,8 @@ class MusicController {
             MusicAlgorithmType.SEQUENTIAL -> midiFileController.keyboardPressed(event)
         }
     }
+
+    fun nextTrack() {
+        midiFileController.nextTrack()
+    }
 }
