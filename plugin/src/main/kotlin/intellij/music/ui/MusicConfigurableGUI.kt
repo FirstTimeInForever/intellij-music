@@ -2,6 +2,7 @@ package intellij.music.ui
 
 import com.intellij.openapi.fileChooser.FileChooser
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
+import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.openapi.vfs.VirtualFileManager
 import intellij.music.core.MusicAlgorithmType
@@ -22,28 +23,31 @@ class MusicConfigurableGUI {
     private lateinit var midiDirChoose: TextFieldWithBrowseButton
 
     init {
-        midiDirChoose.addActionListener { e ->
+        midiDirChoose.addActionListener {
             @NonNls val path = midiDirChoose.text.trim { it <= ' ' }
-            selectDirectory(
-                path,
-                { s -> midiDirChoose.text = s },
-                rootPanel
-            )
+            selectDirectory(path, this::onSelectDirectory, rootPanel)
         }
+
+        enabled.addActionListener { updateEnabled() }
+        musicType2.addActionListener { updateEnabled() }
     }
 
-    private fun selectDirectory(
-        path: String,
-        dirConsumer: (String) -> Unit,
-        component: Component?
-    ) {
-        var path = path
+    private fun onSelectDirectory(directory: String) {
+        val file = File(directory)
+        val midiFiles = file.listFiles { midiFile -> midiFile.extension == "mid" }
+        if (midiFiles?.isEmpty() == true) {
+            Messages.showMessageDialog(null, "Please select directory which contains midi files", "Fancy Music", Messages.getInformationIcon());
+            return
+        }
+
+        midiDirChoose.text = directory
+    }
+
+    private fun selectDirectory(path0: String, dirConsumer: (String) -> Unit, component: Component?) {
+        var path = path0
         val descriptor = FileChooserDescriptorFactory.createSingleFolderDescriptor()
-            .withTitle("dialog.title.select.configuration.directory")
-            .withDescription("dialog.description.select.configuration.directory")
+            .withTitle("Select directory with midi files")
             .withShowFileSystemRoots(true)
-            .withHideIgnored(false)
-            .withShowHiddenFiles(true)
 
         path = "file://" + path.replace(File.separatorChar, '/')
         val root = VirtualFileManager.getInstance().findFileByUrl(path)
@@ -69,7 +73,6 @@ class MusicConfigurableGUI {
         musicType1.isSelected = config.algorithmType == MusicAlgorithmType.RANDOM
         musicType2.isSelected = !musicType1.isSelected
 
-        enabled.addActionListener { e -> updateEnabled() }
         updateEnabled()
     }
 
@@ -78,7 +81,7 @@ class MusicConfigurableGUI {
         onlyInEditor.isEnabled = isEnabled
         musicType1.isEnabled = isEnabled
         musicType2.isEnabled = isEnabled
-        midiDirChoose.isEnabled = isEnabled
+        midiDirChoose.isEnabled = isEnabled && musicType2.isSelected
     }
 
     fun saveToConfig(config: MusicConfig) {

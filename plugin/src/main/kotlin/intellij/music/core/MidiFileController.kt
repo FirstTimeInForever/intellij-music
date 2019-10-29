@@ -2,6 +2,7 @@ package intellij.music.core
 
 import intellij.music.ui.MusicKeyboardEvent
 import java.io.File
+import kotlin.random.Random
 
 class MidiFileController(midiBackend: MidiBackend,
                          private val keyboardStorage: KeyboardStorage,
@@ -23,11 +24,18 @@ class MidiFileController(midiBackend: MidiBackend,
         if(currentFileIndex >= userFiles.size) {
             currentFileIndex = 0
         }
-        System.out.println(userFiles[currentFileIndex].toString())
-        setFile(userFiles[currentFileIndex])
+        setCurrentFile()
     }
 
-    fun setFile(file: File) {
+    fun setRandomTrack() {
+        currentFileIndex = Random.nextInt(userFiles.size)
+        setCurrentFile()
+    }
+
+    private fun setCurrentFile() {
+        val file = userFiles[currentFileIndex]
+        println("Start midi file: $file")
+
         midiFilePlayer.setAudioFile(file)
         midiFilePlayer.playFile()
         midiFilePlayer.pause()
@@ -43,14 +51,14 @@ class MidiFileController(midiBackend: MidiBackend,
         apmController.onAction()
     }
 
-    fun checkActive() {
+    private fun checkActive() {
         if (!isActive) {
             isActive = true
             midiFilePlayer.resume()
         }
     }
 
-    fun onApmUpdate(actionsPerSecond: Float, millisecondsSinceLastAction: Long) {
+    private fun onApmUpdate(actionsPerSecond: Float, millisecondsSinceLastAction: Long) {
         if (millisecondsSinceLastAction > 300) {
             midiFilePlayer.pause()
             isActive = false
@@ -62,7 +70,7 @@ class MidiFileController(midiBackend: MidiBackend,
         System.err.println("aps: $actionsPerSecond  bpm: $bpmMultiplier")
     }
 
-    fun calculateBpm(actionsPerSecond: Float): Double {
+    private fun calculateBpm(actionsPerSecond: Float): Double {
         return when {
             actionsPerSecond < 0.5 -> 0.5 + 0.1 * actionsPerSecond / 0.5
             actionsPerSecond < 1.0 -> 0.6 + 0.1 * (actionsPerSecond - 0.5) / (1 - 0.5)

@@ -8,7 +8,7 @@ import java.io.File
     Base controller class.
  */
 class MusicController {
-    private var config = MusicConfig.instance
+    private val config = MusicConfig.instance
     private val keyboardStorage: KeyboardStorage = KeyboardStorage(10.0)
     private val userFiles = UserDirectoryLoader()
     private var isSoundFontLoaded: Boolean = false
@@ -41,5 +41,12 @@ class MusicController {
 
     fun nextTrack() {
         midiFileController.nextTrack()
+    }
+
+    fun reloadMidiFilesDirectory() {
+        userFiles.reindexFiles()
+        if (config.algorithmType == MusicAlgorithmType.SEQUENTIAL) {
+            midiFileController.setRandomTrack()
+        }
     }
 }

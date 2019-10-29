@@ -6,7 +6,7 @@ import kotlin.properties.Delegates
 
 class MusicConfigurable : SearchableConfigurable {
     private var gui by Delegates.notNull<MusicConfigurableGUI>()
-    private var config: MusicConfig = MusicConfig.instance
+    private val config = MusicConfig.instance
 
     override fun isModified(): Boolean {
         return gui.isModified(config)
@@ -22,6 +22,7 @@ class MusicConfigurable : SearchableConfigurable {
 
     override fun apply() {
         gui.saveToConfig(config)
+        MusicApplicationComponent.instance.controller.reloadMidiFilesDirectory()
     }
 
     override fun createComponent(): JComponent? {

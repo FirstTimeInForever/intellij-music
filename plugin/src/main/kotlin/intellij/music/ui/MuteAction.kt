@@ -4,7 +4,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.ToggleAction
 
 class MuteAction : ToggleAction() {
-    private var config: MusicConfig = MusicConfig.instance
+    private val config = MusicConfig.instance
 
     override fun isSelected(e: AnActionEvent): Boolean {
         return !config.enabled
