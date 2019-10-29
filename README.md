@@ -16,35 +16,18 @@ Play fancy music based on your keyboard activity.
 ## Description
 This plugin plays random notes from random major scales based on your typing speed. Everytime you press the key, it plays random piano note based on some music theory.
 
-Also, this plugin can play your custom midi files! Just put into your midi directory!
+Also, this plugin can play your custom midi files! Just put them into your midi directory!
 
 
-## Build instructions
-Create directory for soundfont and midi files:
-```
-mkdir -p ~/my-midis
-```
-Download soundfont file:
-```
-curl 'https://raw.githubusercontent.com/urish/cinto/master/media/FluidR3%20GM.sf2' > ~/my-midis/soundfont.sf2
-```
-Download and install plugin:
-```
-git clone git@github.com:FirstTimeInForever/intellij-music.git
-cd intellij-music/plugin
-./gradlew :runIde
-```
+## Installation instructions
+* Download the plugin from [this url](https://github.com/FirstTimeInForever/intellij-music/releases/latest/download/FancyMusic.zip)
+* Open any JetBrains IDE, e.g. [IntelliJ Community](https://www.jetbrains.com/idea/download/)
+* Install the plugin ([instruction](https://www.jetbrains.com/help/idea/managing-plugins.html#install_plugin_from_disk))
+* Restart IDE and wait until download of music files is finished
+* Open any file and start typing, enjoy the music!
 
+You can also change music type in settings (Random/Sequential), and even choose directory with you own midi files.
 
-## Инструкция по сборке и запуске проекта
-```
-mkdir -p ~/my-midis
-curl 'https://raw.githubusercontent.com/urish/cinto/master/media/FluidR3%20GM.sf2' > ~/my-midis/soundfont.sf2
-
-git clone git@github.com:FirstTimeInForever/intellij-music.git
-cd intellij-music/plugin
-./gradlew :runIde
-```
 
 ## Getting involved
 
