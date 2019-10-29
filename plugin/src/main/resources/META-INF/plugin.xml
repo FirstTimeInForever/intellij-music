@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>intellij.music</id>
-    <name>Intellij Music</name>
-    <vendor email="diralik+intellij-music@yandex.ru" url="https://intellij-music.ai">IntelliJ Music</vendor>
+    <name>Fancy Music</name>
+    <vendor email="diralik+fancy-music@yandex.ru" url="https://fancy-music.ai">Fancy Music</vendor>
 
     <description><![CDATA[
         When you are typing, there will be ring out a beautiful background music.
@@ -10,7 +10,7 @@
     <depends>com.intellij.modules.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable displayName="Intellij Music Plugin" instance="intellij.music.ui.MusicConfigurable" />
+        <applicationConfigurable displayName="Fancy Music Plugin" instance="intellij.music.ui.MusicConfigurable" />
         <applicationService serviceImplementation="intellij.music.ui.MusicConfig" />
         <typedHandler implementation="intellij.music.ui.MusicTypedHandlerDelegate" />
     </extensions>

@@ -17,7 +17,7 @@ class MusicConfigurable : SearchableConfigurable {
     }
 
     override fun getDisplayName(): String {
-        return "Intellij Music Plugin"
+        return "Fancy Music Plugin"
     }
 
     override fun apply() {
