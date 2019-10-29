@@ -10,12 +10,20 @@ class RandomNotesController(midiBackend: MidiBackend) {
 
     private var lastNoteTime = Date()
 
+    var switchScales = false
+    private var currentScaleIsMajor = true
+
+    fun setCurrentScale(major: Boolean) {
+        currentScaleIsMajor = major
+        circleSequencer.setCurrentScale(currentScaleIsMajor)
+    }
+
     fun keyboardPressed(event: MusicKeyboardEvent) {
         val diff = TimeUnit.MILLISECONDS.toMillis(Date().time - lastNoteTime.time)
         if(diff < 130) {
             return
         }
-        else if(diff > 900) {
+        else if(switchScales && diff > 900) {
             circleSequencer.changeMode()
         }
         if(event.numberModifiers != 0) {

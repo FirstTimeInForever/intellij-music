@@ -21,6 +21,16 @@ class CircleOfFifthsSequencer {
         return result
     }
 
+    fun setCurrentScale(major: Boolean) {
+        println("Change scale")
+        if(major) {
+            currentModeIndex = 0
+        }
+        else {
+            currentModeIndex = 1
+        }
+    }
+
     fun changeMode() {
         println("Trying to change mode")
         currentModeIndex = modes.size - 1 - selectRandom(listOf(0, 1), listOf(0.5, 0.5))
