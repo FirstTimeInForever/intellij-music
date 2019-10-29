@@ -1,6 +1,6 @@
 # intellij-music
-![](https://img.shields.io/github/stars/FirstTimeInForever/intellij-music?style=for-the-badge)
-![](https://img.shields.io/github/issues/FirstTimeInForever/intellij-music?style=for-the-badge)
+![](https://img.shields.io/github/stars/FirstTimeInForever/intellij-music?style=plastic)
+![](https://img.shields.io/github/issues/FirstTimeInForever/intellij-music?style=plastic)
 
 ## Инструкция по сборке и запуске проекта
 ```
