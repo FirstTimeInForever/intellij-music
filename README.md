@@ -1,7 +1,8 @@
 # intellij-music
-![](https://img.shields.io/github/stars/FirstTimeInForever/intellij-music?style=plastic)
-![](https://img.shields.io/github/issues/FirstTimeInForever/intellij-music?style=plastic)
-![](https://img.shields.io/github/license/FirstTimeInForever/intellij-music?style=plastic)
+![](https://img.shields.io/badge/DevHack-2019-green)
+![](https://img.shields.io/github/stars/FirstTimeInForever/intellij-music?style=flat)
+![](https://img.shields.io/github/issues/FirstTimeInForever/intellij-music?style=flat)
+![](https://img.shields.io/github/license/FirstTimeInForever/intellij-music?style=flat)
 
 ## Инструкция по сборке и запуске проекта
 ```
