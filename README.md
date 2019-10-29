@@ -45,3 +45,8 @@ git clone git@github.com:FirstTimeInForever/intellij-music.git
 cd intellij-music/plugin
 ./gradlew :runIde
 ```
+
+## Getting involved
+
+* If you want to contribute please feel free to submit pull requests.
+* If you have a feature request please open an issue.
