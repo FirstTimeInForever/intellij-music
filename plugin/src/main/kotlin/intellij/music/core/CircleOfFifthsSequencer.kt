@@ -1,9 +1,10 @@
 package intellij.music.core
 
 
+
 class CircleOfFifthsSequencer {
     private var previousNote = Pair("C", 3)
-    private val modes: List<ScaleSequencer> = listOf(MajorScaleSequencer())
+    private val modes: List<ScaleSequencer> = listOf(MajorScaleSequencer(), MinorScaleSequencer())
     private var currentModeIndex = 0
 
     fun nextNote(): Int {
@@ -21,6 +22,7 @@ class CircleOfFifthsSequencer {
     }
 
     fun changeMode() {
-        currentModeIndex = modes.indexOf(modes.random())
+        println("Trying to change mode")
+        currentModeIndex = modes.size - 1 - selectRandom(listOf(0, 1), listOf(0.5, 0.5))
     }
 }

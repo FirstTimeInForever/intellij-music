@@ -38,7 +38,7 @@ object MidiNotes {
     val notes = listOf("C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B")
         get() = field
 
-    val scaleNotes: Map<String, List<String>> = mapOf(
+    val majorScaleNotes: Map<String, List<String>> = mapOf(
         "C" to listOf("C", "D", "E", "F", "G", "A", "B", "C"),
         "D" to listOf("D", "E", "Gb", "G", "A", "B", "Db", "D"),
         "E" to listOf("E", "Gb", "Ab", "A", "B", "Db", "Eb", "E"),
@@ -48,4 +48,14 @@ object MidiNotes {
         "B" to listOf("B", "Db", "Eb", "E", "Gb", "Ab", "Bb", "B")
     )
         get() = field
+
+    val minorScaleNotes: Map<String, List<String>> = mapOf(
+        "A" to listOf("Bb", "Cb", "Db", "Eb", "Fb", "Gb", "Ab", "Bb"),
+        "B" to listOf("B", "Db", "D", "E", "Gb", "G", "A", "B"),
+        "C" to listOf("C", "D", "Eb", "F", "G", "Ab", "Bb", "C"),
+        "D" to listOf("D", "E", "F", "G", "A", "Bb", "C", "D"),
+        "E" to listOf("E", "Gb", "G", "A", "B", "C", "D", "E"),
+        "F" to listOf("F", "G", "Ab", "Bb", "C", "Db", "Eb", "F"),
+        "G" to listOf("G", "A", "Bb", "C", "D", "Eb", "F", "G")
+    )
 }
