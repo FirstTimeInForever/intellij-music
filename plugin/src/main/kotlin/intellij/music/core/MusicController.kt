@@ -1,5 +1,6 @@
 package intellij.music.core
 
+import intellij.music.ui.MusicConfig
 import intellij.music.ui.MusicKeyboardEvent
 import java.io.File
 
@@ -7,6 +8,7 @@ import java.io.File
     Base controller class.
  */
 class MusicController {
+    private var config = MusicConfig.instance
     private val keyboardStorage: KeyboardStorage = KeyboardStorage(10.0)
     private val midiBackend: MidiBackend = MidiBackend(File(SOUNDFONT_PATH))
     private val midiFileController = MidiFileController(midiBackend, keyboardStorage)
@@ -17,7 +19,10 @@ class MusicController {
     }
 
     fun keyboardPressed(event: MusicKeyboardEvent) {
-        midiFileController.keyboardPressed(event)
+        when (config.algorithmType) {
+            MusicAlgorithmType.RANDOM -> randomNotesController.keyboardPressed(event)
+            MusicAlgorithmType.SEQUENTIAL -> midiFileController.keyboardPressed(event)
+        }
     }
 
     companion object {
