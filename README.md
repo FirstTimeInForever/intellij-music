@@ -9,6 +9,24 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/firsttimeinforever/intellij-music)
 ![](https://img.shields.io/github/last-commit/firsttimeinforever/intellij-music)
 
+
+## Build instructions
+Create directory for soundfont and midi files:
+```
+mkdir -p ~/my-midis
+```
+Download soundfont file:
+```
+curl 'https://raw.githubusercontent.com/urish/cinto/master/media/FluidR3%20GM.sf2' > ~/my-midis/soundfont.sf2
+```
+Download and install plugin:
+```
+git clone git@github.com:FirstTimeInForever/intellij-music.git
+cd intellij-music/plugin
+./gradlew :runIde
+```
+
+
 ## Инструкция по сборке и запуске проекта
 ```
 mkdir -p ~/my-midis
