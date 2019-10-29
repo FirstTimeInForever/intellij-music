@@ -1,7 +1,6 @@
 package intellij.music.ui
 
 import com.intellij.codeInsight.editorActions.TypedHandlerDelegate
-import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorKind
 import com.intellij.openapi.project.Project
@@ -13,9 +12,9 @@ class MusicTypedHandlerDelegate : TypedHandlerDelegate() {
 
     override fun charTyped(char: Char, project: Project, editor: Editor, file: PsiFile): Result {
         if (config.enabled && config.onlyInEditor && editor.editorKind == EditorKind.MAIN_EDITOR) {
-            val application = ApplicationManager.getApplication().getComponent(MusicApplicationComponent::class.java)
+            val application = MusicApplicationComponent.instance
             val event = MusicKeyboardEvent(char, 0, "en", 0)
-            application.controller.keyboardPressed(event)
+            application.keyboardPressed(event)
         }
         return super.charTyped(char, project, editor, file)
     }
