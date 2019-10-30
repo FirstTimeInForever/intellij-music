@@ -43,17 +43,35 @@ class MusicController {
         midiFileController.nextTrack()
     }
 
-    private fun reloadMidiFilesDirectory() {
+//    private fun reloadMidiFilesDirectory() {
+//        userFiles.reloadMidiFilesDirectory()
+//        if (config.algorithmType == MusicAlgorithmType.SEQUENTIAL) {
+//            midiFileController.setRandomTrack()
+//        }
+//    }
+
+    fun onSettingsChanged() {
         userFiles.reloadMidiFilesDirectory()
+        reopenCurrentMidiFile()
+
+//        midiBackend.reload()
+//        todo remove
+//        if (config.algorithmType == MusicAlgorithmType.SEQUENTIAL) {
+//            midiFileController.setCurrentFile()
+//        }
+
+//        return
+//        randomNotesController.notesPlayer.ensureResetNotes()
+//        midiFileController.reloadSequencer()
+    }
+
+    private fun reopenCurrentMidiFile() {
         if (config.algorithmType == MusicAlgorithmType.SEQUENTIAL) {
-            midiFileController.setRandomTrack()
+            midiFileController.setCurrentFile()
         }
     }
 
-    fun onSettingsChanged() {
-        reloadMidiFilesDirectory()
-        midiBackend.reload()
-        randomNotesController.notesPlayer.ensureResetNotes()
-        midiFileController.reloadSequencer()
+    fun onSwitchAction() {
+        reopenCurrentMidiFile()
     }
 }

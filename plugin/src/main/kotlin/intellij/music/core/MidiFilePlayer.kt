@@ -49,7 +49,9 @@ class MidiFilePlayer(val backend: MidiBackend) {
     }
 
     fun pause() {
-        sequencer.stop()
+        if (sequencer.isOpen) {
+            sequencer.stop()
+        }
     }
 
     fun resume() {

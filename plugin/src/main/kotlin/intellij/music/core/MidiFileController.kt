@@ -32,7 +32,7 @@ class MidiFileController(midiBackend: MidiBackend,
         setCurrentFile()
     }
 
-    private fun setCurrentFile() {
+    fun setCurrentFile() {
         val file = userFiles[currentFileIndex]
         println("Start midi file: $file")
 

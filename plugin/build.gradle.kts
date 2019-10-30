@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "intellij.music"
-version = "0.9.4"
+version = "0.9.9b"
 
 repositories {
     jcenter()

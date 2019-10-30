@@ -2,29 +2,27 @@ package intellij.music.core
 
 import java.io.File
 import javax.sound.midi.MidiSystem
-import javax.sound.midi.Synthesizer
 
 class MidiBackend(private val soundfontFile: File) {
-    lateinit var synthesizer: Synthesizer
+    val synthesizer = MidiSystem.getSynthesizer()
 
     init {
         init()
     }
 
-    fun init() {
-        synthesizer = MidiSystem.getSynthesizer()
+    private fun init() {
         synthesizer.open()
         synthesizer.unloadAllInstruments(synthesizer.defaultSoundbank)
         val soundbank = MidiSystem.getSoundbank(soundfontFile)
         synthesizer.loadAllInstruments(soundbank)
     }
 
-    fun unload() {
-        synthesizer.close()
-    }
-
-    fun reload() {
-        unload()
-        init()
-    }
+//    fun unload() {
+//        synthesizer.close()
+//    }
+//
+//    fun reload() {
+//        unload()
+//        init()
+//    }
 }

@@ -14,11 +14,15 @@ class MidiNotesPlayer(val backend: MidiBackend) {
 //    }
 
     fun ensureResetNotes() {
-        backend.reload()
+//        backend.reload()
         channel.allNotesOff()
     }
 
     fun playNote(note: Int, velocity: Int) {
+        if (channel.program != 0) {
+            channel.programChange(0, 0)
+        }
+
         channel.noteOn(note, velocity)
         prevNote = note
         timer.schedule(timerTask {
