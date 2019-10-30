@@ -25,13 +25,13 @@
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
         <action id="IntellijMusic.SwitchMusicTypeAction" class="intellij.music.ui.actions.SwitchToSequentialAction"
-                text="Fancy Music: Switch Music Type (Random/Sequential)" />
+                text="Fancy Music: Switch To Custom MIDI Music" />
         <action id="intellij.music.ui.actions.SwitchToMinorScaleAction"
-                class="intellij.music.ui.actions.SwitchToMinorScaleAction" text="Fancy Music Use Minor Scale"/>
+                class="intellij.music.ui.actions.SwitchToMinorScaleAction" text="Fancy Music: Use Minor Scale"/>
         <action id="intellij.music.ui.actions.SwitchToMajorScaleAction"
-                class="intellij.music.ui.actions.SwitchToMajorScaleAction" text="Fancy Music Use Major Scale"/>
+                class="intellij.music.ui.actions.SwitchToMajorScaleAction" text="Fancy Music: Use Major Scale"/>
         <action id="intellij.music.ui.actions.SwitchToRandomScaleAction"
-                class="intellij.music.ui.actions.SwitchToRandomScaleAction" text="Fancy Music Switch To Random Scales"/>
+                class="intellij.music.ui.actions.SwitchToRandomScaleAction" text="Fancy Music: Switch To Random Scales"/>
     </actions>
 
     <application-components>
