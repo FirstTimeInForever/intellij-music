@@ -5,8 +5,8 @@ import com.intellij.openapi.actionSystem.AnActionEvent
 import intellij.music.core.MusicAlgorithmType
 import intellij.music.ui.MusicConfig
 
-class SwitchToRandomScaleAction: AnAction() {
+class SwitchToSequentialAction: AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
-        MusicConfig.instance.algorithmType = MusicAlgorithmType.RANDOM_BOTH
+        MusicConfig.instance.algorithmType = MusicAlgorithmType.SEQUENTIAL
     }
 }

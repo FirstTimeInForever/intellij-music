@@ -22,7 +22,6 @@ class CircleOfFifthsSequencer {
     }
 
     fun setCurrentScale(major: Boolean) {
-        println("Change scale")
         if(major) {
             currentModeIndex = 0
         }

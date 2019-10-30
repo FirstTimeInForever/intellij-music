@@ -39,14 +39,6 @@ class MusicController {
         }
     }
 
-    fun setScale(isMajor: Boolean) {
-        randomNotesController.setCurrentScale(isMajor)
-    }
-
-    fun toggleScaleSwitch(state: Boolean) {
-        randomNotesController.switchScales = state
-    }
-
     fun nextTrack() {
         midiFileController.nextTrack()
     }
