@@ -20,6 +20,9 @@ class RandomNotesController(midiBackend: MidiBackend) {
         else if(MusicConfig.instance.algorithmType == MusicAlgorithmType.RANDOM_BOTH && diff > 900) {
             circleSequencer.changeMode()
         }
+        if (diff > 900) {
+            notesPlayer.ensureResetNotes()
+        }
         if(event.numberModifiers != 0) {
             notesPlayer.playChord(circleSequencer.getChord(), BASE_NOTE_VELOCITY * 2)
             circleSequencer.nextNote()

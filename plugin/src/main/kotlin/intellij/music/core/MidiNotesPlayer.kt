@@ -4,21 +4,21 @@ import java.util.*
 import javax.sound.midi.MidiChannel
 import kotlin.concurrent.timerTask
 
-class MidiNotesPlayer(val backend: MidiBackend) {
+class MidiNotesPlayer(backend: MidiBackend) {
     private val channel: MidiChannel = backend.synthesizer.channels[0]
     private var prevNote: Int = 0
     private val timer = Timer()
 
-//    init {
-//        channel.noteOn(60, 100)
-//    }
-
     fun ensureResetNotes() {
-        backend.reload()
+//        backend.reload()
         channel.allNotesOff()
     }
 
     fun playNote(note: Int, velocity: Int) {
+        if (channel.program != 0) {
+            channel.programChange(0, 0)
+        }
+
         channel.noteOn(note, velocity)
         prevNote = note
         timer.schedule(timerTask {

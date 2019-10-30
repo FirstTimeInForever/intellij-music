@@ -29,9 +29,7 @@ class MusicController {
     }
 
     fun keyboardPressed(event: MusicKeyboardEvent) {
-        if (!isSoundFontLoaded) {
-            return
-        }
+        if (!isSoundFontLoaded) return
 
         when (config.algorithmType) {
             MusicAlgorithmType.SEQUENTIAL -> midiFileController.keyboardPressed(event)
@@ -43,17 +41,22 @@ class MusicController {
         midiFileController.nextTrack()
     }
 
-    private fun reloadMidiFilesDirectory() {
+    fun onSettingsChanged() {
         userFiles.reloadMidiFilesDirectory()
+        reopenCurrentMidiFile()
+    }
+
+    private fun reopenCurrentMidiFile() {
+        if (!isSoundFontLoaded) return
         if (config.algorithmType == MusicAlgorithmType.SEQUENTIAL) {
-            midiFileController.setRandomTrack()
+            midiFileController.setCurrentFile()
+        } else {
+//            todo ???
+//            randomNotesController.notesPlayer.ensureResetNotes()
         }
     }
 
-    fun onSettingsChanged() {
-        reloadMidiFilesDirectory()
-        midiBackend.reload()
-        randomNotesController.notesPlayer.ensureResetNotes()
-        midiFileController.reloadSequencer()
+    fun onSwitchMusicTypeAction() {
+        reopenCurrentMidiFile()
     }
 }
