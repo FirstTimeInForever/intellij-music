@@ -21,7 +21,7 @@ Also, this plugin can play your custom midi files! Just put them into your midi 
 
 ## Installation instructions
 * Download [latest release](https://github.com/FirstTimeInForever/intellij-music/releases/latest/download/FancyMusic.zip)
-* Open any JetBrains IDE, e.g. [IntelliJ Community](https://www.jetbrains.com/idea/download/)
+* Open any JetBrains IDE, e.g. [IntelliJ IDEA Community](https://www.jetbrains.com/idea/download/)
 * Install the plugin ([instruction](https://www.jetbrains.com/help/idea/managing-plugins.html#install_plugin_from_disk))
 * Restart IDE and wait until download of music files is finished
 * Open any file and start typing.
