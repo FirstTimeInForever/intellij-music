@@ -14,7 +14,7 @@
 Play fancy music based on your keyboard activity.
 
 ## Description
-This plugin plays random notes from random major scales based on your typing speed. Everytime you press the key, it plays random piano note based on some music theory.
+This plugin plays random notes from random major/minor scales based on your typing speed. Everytime you press the key, it plays random piano note based on some fancy (not really) music theory.
 
 Also, this plugin can play your custom midi files! Just put them into your midi directory!
 
