@@ -41,8 +41,8 @@ class MidiFileController(midiBackend: MidiBackend,
         midiFilePlayer.pause()
     }
 
-    fun stop() {
-        midiFilePlayer.pause()
+    fun reloadSequencer() {
+        midiFilePlayer.reload()
     }
 
     fun keyboardPressed(event: MusicKeyboardEvent) {

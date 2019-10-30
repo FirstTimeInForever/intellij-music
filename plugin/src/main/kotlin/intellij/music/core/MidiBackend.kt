@@ -5,13 +5,14 @@ import javax.sound.midi.MidiSystem
 import javax.sound.midi.Synthesizer
 
 class MidiBackend(private val soundfontFile: File) {
-    val synthesizer: Synthesizer = MidiSystem.getSynthesizer()
+    lateinit var synthesizer: Synthesizer
 
     init {
         init()
     }
 
     fun init() {
+        synthesizer = MidiSystem.getSynthesizer()
         synthesizer.open()
         synthesizer.unloadAllInstruments(synthesizer.defaultSoundbank)
         val soundbank = MidiSystem.getSoundbank(soundfontFile)

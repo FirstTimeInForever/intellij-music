@@ -7,14 +7,13 @@ import java.io.InputStream
 import javax.sound.midi.MetaEventListener
 import javax.sound.midi.MidiSystem
 
-class MidiFilePlayer(backend: MidiBackend) {
+class MidiFilePlayer(val backend: MidiBackend) {
     private val sequencer = MidiSystem.getSequencer(false)
     private var inputStream: InputStream? = null
     private var baseBpm: Float = 1f
 
     init {
-        sequencer.transmitter.receiver = backend.synthesizer.receiver
-        sequencer.open()
+        init()
     }
 
     fun setAudioFile(file: File) {
@@ -34,9 +33,19 @@ class MidiFilePlayer(backend: MidiBackend) {
         })
     }
 
-    fun unloadBackend() {
+    fun init() {
+        sequencer.transmitter.receiver = backend.synthesizer.receiver
+        sequencer.open()
+    }
+
+    fun unload() {
         inputStream?.close()
         sequencer.close()
+    }
+
+    fun reload() {
+        unload()
+        init()
     }
 
     fun pause() {

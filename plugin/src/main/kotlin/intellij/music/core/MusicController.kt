@@ -52,7 +52,8 @@ class MusicController {
 
     fun onSettingsChanged() {
         reloadMidiFilesDirectory()
-        randomNotesController.notesPlayer.ensureResetNotes()
         midiBackend.reload()
+        randomNotesController.notesPlayer.ensureResetNotes()
+        midiFileController.reloadSequencer()
     }
 }
