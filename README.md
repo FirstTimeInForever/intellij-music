@@ -1,14 +1,15 @@
 # intellij-music (Fancy Music Plugin)
-![](https://img.shields.io/badge/DevHack-2019-green)
-![](https://img.shields.io/github/stars/FirstTimeInForever/intellij-music?style=flat)
-![](https://img.shields.io/github/issues/FirstTimeInForever/intellij-music?style=flat)
-![](https://img.shields.io/github/license/FirstTimeInForever/intellij-music?style=flat)
-![](https://img.shields.io/github/forks/FirstTimeInForever/intellij-music)
+[![DevHack 2019](https://img.shields.io/badge/DevHack-2019-green)](https://wiki.compscicenter.ru/index.php/Devdays_Осень_2019_(проекты))
+[![JetBrains plugins](https://img.shields.io/jetbrains/plugin/v/13231-fancy-music.svg)](https://plugins.jetbrains.com/plugin/13231-fancy-music)
+[![GitHub stars](https://img.shields.io/github/stars/FirstTimeInForever/intellij-music)](https://github.com/FirstTimeInForever/intellij-music/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/FirstTimeInForever/intellij-music)](https://github.com/FirstTimeInForever/intellij-music/issues)
+[![License](https://img.shields.io/github/license/FirstTimeInForever/intellij-music)](https://github.com/FirstTimeInForever/intellij-music/blob/master/LICENSE)
+[![GitHub forks](https://img.shields.io/github/forks/FirstTimeInForever/intellij-music)](https://github.com/FirstTimeInForever/intellij-music/network/members)
 
 [![CircleCI](https://circleci.com/gh/FirstTimeInForever/intellij-music.svg?style=svg)](https://circleci.com/gh/FirstTimeInForever/intellij-music)
-![](https://img.shields.io/github/v/tag/firsttimeinforever/intellij-music?include_prereleases)
-![GitHub contributors](https://img.shields.io/github/contributors/firsttimeinforever/intellij-music)
-![](https://img.shields.io/github/last-commit/firsttimeinforever/intellij-music)
+[![Latest release](https://img.shields.io/github/v/tag/firsttimeinforever/intellij-music?include_prereleases)](https://github.com/FirstTimeInForever/intellij-music/releases)
+[![GitHub contributors](https://img.shields.io/github/contributors/firsttimeinforever/intellij-music)](https://github.com/FirstTimeInForever/intellij-music/graphs/contributors)
+[![Latest commit](https://img.shields.io/github/last-commit/firsttimeinforever/intellij-music)](https://github.com/FirstTimeInForever/intellij-music/commits/master)
 
 
 Plays fancy music based on your keyboard activity.
@@ -20,9 +21,8 @@ Also, this plugin can play your custom midi files! Just put them into your midi 
 
 
 ## Installation instructions
-* Download [latest release](https://github.com/FirstTimeInForever/intellij-music/releases/latest/download/FancyMusic.zip)
 * Open any JetBrains IDE, e.g. [IntelliJ IDEA Community](https://www.jetbrains.com/idea/download/)
-* Install the plugin ([instruction](https://www.jetbrains.com/help/idea/managing-plugins.html#install_plugin_from_disk))
+* Install [the plugin](https://plugins.jetbrains.com/plugin/13231-fancy-music) ([instruction](https://www.jetbrains.com/help/idea/managing-plugins.html))
 * Restart IDE and wait until download of music files is finished
 * Open any file and start typing.
 * ...
