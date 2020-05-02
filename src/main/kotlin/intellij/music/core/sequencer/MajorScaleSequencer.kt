@@ -1,5 +1,6 @@
-package intellij.music.core
+package intellij.music.core.sequencer
 
+import intellij.music.core.MidiNotes
 import kotlin.random.Random
 
 class MajorScaleSequencer: ScaleSequencer {
@@ -33,7 +34,8 @@ class MajorScaleSequencer: ScaleSequencer {
         val scale = MidiNotes.majorScaleNotes[currentScale] ?: error("Failed to get scale!")
         if (Random.nextBoolean()) {
             if (previousNoteIndex == 0 || previousNoteIndex == 7) {
-                val octaveShift = MidiNotes.octaveShift(notesPlayedInOctave, currentOctave)
+                val octaveShift =
+                    MidiNotes.octaveShift(notesPlayedInOctave, currentOctave)
                 if(octaveShift != 0) {
                     notesPlayedInOctave = 0
                     currentOctave += octaveShift

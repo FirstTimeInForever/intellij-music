@@ -1,4 +1,4 @@
-package intellij.music.core
+package intellij.music.core.sequencer
 
 interface ScaleSequencer {
     fun nextNote(previousNote: Pair<String, Int>): Pair<String, Int>
