@@ -1,9 +1,10 @@
-package intellij.music.core
+package intellij.music.core.sequencer
 
+import intellij.music.core.selectRandom
 import kotlin.math.abs
 import kotlin.random.Random
 
-object MidiNotes {
+object Notes {
     fun noteToMidi(note: Pair<String, Int>): Int {
         val index = notes.indexOf(note.first)
         return index + note.second * notes.size
@@ -33,10 +34,9 @@ object MidiNotes {
         return shift
     }
 
-    val BASE_OCTAVE: Int = 3
+    const val BASE_OCTAVE: Int = 3
 
     val notes = listOf("C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B")
-        get() = field
 
     val majorScaleNotes: Map<String, List<String>> = mapOf(
         "C" to listOf("C", "D", "E", "F", "G", "A", "B", "C"),
@@ -47,7 +47,6 @@ object MidiNotes {
         "A" to listOf("A", "B", "Db", "D", "E", "Gb", "Ab", "A"),
         "B" to listOf("B", "Db", "Eb", "E", "Gb", "Ab", "Bb", "B")
     )
-        get() = field
 
     val minorScaleNotes: Map<String, List<String>> = mapOf(
         "A" to listOf("Bb", "Cb", "Db", "Eb", "Fb", "Gb", "Ab", "Bb"),

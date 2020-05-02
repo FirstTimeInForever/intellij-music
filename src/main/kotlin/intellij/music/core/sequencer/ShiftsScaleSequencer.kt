@@ -1,7 +1,6 @@
 package intellij.music.core.sequencer
 
 import com.intellij.openapi.diagnostic.logger
-import intellij.music.core.MidiNotes
 import kotlin.random.Random
 
 class ShiftsScaleSequencer(private val scaleNotes: Map<String, List<String>>, private val modeShifts: List<List<Int>>) :
@@ -9,7 +8,7 @@ class ShiftsScaleSequencer(private val scaleNotes: Map<String, List<String>>, pr
     private var currentScale = "A"
     private var notesPlayedInScale = 0
     private var notesPlayedInOctave = 0
-    private var currentOctave = listOf(MidiNotes.BASE_OCTAVE, MidiNotes.BASE_OCTAVE + 1).random()
+    private var currentOctave = listOf(Notes.BASE_OCTAVE, Notes.BASE_OCTAVE + 1).random()
     private var previousNoteIndex: Int = 0
 
     private val logger = logger<ShiftsScaleSequencer>()
@@ -38,7 +37,7 @@ class ShiftsScaleSequencer(private val scaleNotes: Map<String, List<String>>, pr
         if (Random.nextBoolean()) {
             if (previousNoteIndex == 0 || previousNoteIndex == 7) {
                 val octaveShift =
-                    MidiNotes.octaveShift(notesPlayedInOctave, currentOctave)
+                    Notes.octaveShift(notesPlayedInOctave, currentOctave)
                 if (octaveShift != 0) {
                     notesPlayedInOctave = 0
                     currentOctave += octaveShift
@@ -60,7 +59,7 @@ class ShiftsScaleSequencer(private val scaleNotes: Map<String, List<String>>, pr
     companion object {
         fun createMinorScaleSequencer(): ShiftsScaleSequencer =
             ShiftsScaleSequencer(
-                MidiNotes.minorScaleNotes,
+                Notes.minorScaleNotes,
                 listOf(
                     listOf(1, 2, 3, 4, 5, 6, 7),
                     listOf(3, 4),
@@ -75,7 +74,7 @@ class ShiftsScaleSequencer(private val scaleNotes: Map<String, List<String>>, pr
 
         fun createMajorScaleSequencer(): ShiftsScaleSequencer =
             ShiftsScaleSequencer(
-                MidiNotes.majorScaleNotes,
+                Notes.majorScaleNotes,
                 listOf(
                     listOf(1, 2, 3, 4, 5, 6, 7),
                     listOf(),

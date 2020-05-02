@@ -13,14 +13,14 @@ class CircleOfFifthsSequencer {
 
     fun nextNote(): Int {
         previousNote = modes[currentModeIndex].nextNote(previousNote)
-        return MidiNotes.noteToMidi(previousNote)
+        return Notes.noteToMidi(previousNote)
     }
 
     fun getChord(): List<Int> {
         val chord = modes[currentModeIndex].getChord()
         val result = mutableListOf<Int>()
         for(note in chord) {
-            result.add(MidiNotes.noteToMidi(note))
+            result.add(Notes.noteToMidi(note))
         }
         return result
     }
