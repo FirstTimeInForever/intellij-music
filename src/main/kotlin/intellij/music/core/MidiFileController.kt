@@ -1,5 +1,6 @@
 package intellij.music.core
 
+import com.intellij.openapi.diagnostic.logger
 import intellij.music.ui.MusicKeyboardEvent
 import java.io.File
 import kotlin.random.Random
@@ -11,6 +12,8 @@ class MidiFileController(midiBackend: MidiBackend,
     private val apmController: ApmController = ApmController(::onApmUpdate)
     private var isActive: Boolean = false
     private var currentFileIndex: Int = -1
+
+    private val logger = logger<MidiFileController>()
 
     init {
         nextTrack()
@@ -34,7 +37,7 @@ class MidiFileController(midiBackend: MidiBackend,
 
     fun setCurrentFile() {
         val file = userFiles[currentFileIndex]
-        println("Start midi file: $file")
+        logger.info("Start midi file: $file")
 
         midiFilePlayer.setAudioFile(file)
         midiFilePlayer.playFile()
@@ -67,7 +70,7 @@ class MidiFileController(midiBackend: MidiBackend,
 
         val bpmMultiplier = calculateBpm(actionsPerSecond).toFloat()
         midiFilePlayer.setBpmMultiplier(bpmMultiplier)
-        System.err.println("aps: $actionsPerSecond  bpm: $bpmMultiplier")
+        logger.debug("aps: $actionsPerSecond  bpm: $bpmMultiplier")
     }
 
     private fun calculateBpm(actionsPerSecond: Float): Double {

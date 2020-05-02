@@ -1,5 +1,6 @@
 package intellij.music.core
 
+import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.progress.PerformInBackgroundOption
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
@@ -18,12 +19,14 @@ class UserDirectoryLoader {
 
     private val midiDirectoryWatcher = MidiDirectoryWatcher(this::reindexFiles)
 
+    private val logger = logger<UserDirectoryLoader>()
+
     private val userDirectory
         get() = File(config.midiDir)
 
     init {
-        println("User directory path: $userDirectory")
-        println("Plugin directory path: $pluginDirectory")
+        logger.info("User directory path: $userDirectory")
+        logger.info("Plugin directory path: $pluginDirectory")
         if (!userDirectory.exists() && !userDirectory.mkdirs()) {
             throw RuntimeException("Could not create user directory  ($userDirectory)")
         }
@@ -58,13 +61,13 @@ class UserDirectoryLoader {
             PerformInBackgroundOption.ALWAYS_BACKGROUND
         ) {
             override fun run(indicator: ProgressIndicator) {
-                println("Fancy Music: Downloading midi files...")
+                logger.info("Downloading midi files...")
                 for (file in initialMidiFiles) {
                     downloadFile(initialMidiFilesUrl + file, File(userDirectory, file))
                 }
                 reindexFiles()
 
-                println("Fancy Music: Downloading sound font...")
+                logger.info("Downloading sound font...")
                 downloadFile(soundFontUrl, soundFontFile)
                 onSoundFontLoaded(soundFontFile)
             }
@@ -73,7 +76,7 @@ class UserDirectoryLoader {
 
     fun reindexFiles() {
         val files: Array<File> = userDirectory.listFiles { file -> !file.isDirectory && file.extension == "mid" } ?: emptyArray()
-        println("Reindex, found files:  ${files.map { it.name }}")
+        logger.info("Reindex, found files:  ${files.map { it.name }}")
 
         userFiles.clear()
         userFiles.addAll(files)

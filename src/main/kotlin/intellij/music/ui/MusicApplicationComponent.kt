@@ -4,6 +4,7 @@ import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.components.BaseComponent
 import com.intellij.openapi.diagnostic.Logger
+import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.editor.ex.EditorEventMulticasterEx
@@ -15,10 +16,10 @@ import org.apache.log4j.Level
 class MusicApplicationComponent : BaseComponent {
     val controller: MusicController = MusicController()
 
-    override fun initComponent() {
-        LOG.setLevel(Level.INFO)
-        LOG.info("Initializing plugin data structures")
+    private val logger = logger<MusicApplicationComponent>()
 
+    override fun initComponent() {
+        logger.info("Initializing plugin data structures")
         initFocusListener()
         MusicKeyEventListener().initKeyListener()
     }
@@ -41,7 +42,7 @@ class MusicApplicationComponent : BaseComponent {
     }
 
     override fun disposeComponent() {
-        LOG.info("Disposing plugin data structures")
+        logger.info("Disposing plugin data structures")
     }
 
     override fun getComponentName(): String {
@@ -49,8 +50,6 @@ class MusicApplicationComponent : BaseComponent {
     }
 
     companion object {
-        private val LOG = Logger.getInstance(MusicApplicationComponent::class.java)
-
         val instance: MusicApplicationComponent
             get() = ApplicationManager.getApplication().getComponent(MusicApplicationComponent::class.java)
     }
