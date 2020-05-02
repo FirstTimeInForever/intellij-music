@@ -6,8 +6,8 @@ import intellij.music.core.*
 class CircleOfFifthsSequencer {
     private var previousNote = Pair("C", 3)
     private val modes: List<ScaleSequencer> = listOf(
-        MajorScaleSequencer(),
-        MinorScaleSequencer()
+        ShiftsScaleSequencer.createMajorScaleSequencer(),
+        ShiftsScaleSequencer.createMinorScaleSequencer()
     )
     private var currentModeIndex = 0
 
@@ -26,11 +26,10 @@ class CircleOfFifthsSequencer {
     }
 
     fun setCurrentScale(major: Boolean) {
-        if (major) {
-            currentModeIndex = 0
-        }
-        else {
-            currentModeIndex = 1
+        currentModeIndex = if (major) {
+            0
+        } else {
+            1
         }
     }
 
