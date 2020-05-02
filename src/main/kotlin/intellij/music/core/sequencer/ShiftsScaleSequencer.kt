@@ -4,7 +4,8 @@ import com.intellij.openapi.diagnostic.logger
 import intellij.music.core.MidiNotes
 import kotlin.random.Random
 
-class ShiftsScaleSequencer(private val modeShifts: List<List<Int>>) : ScaleSequencer {
+class ShiftsScaleSequencer(private val scaleNotes: Map<String, List<String>>, private val modeShifts: List<List<Int>>) :
+    ScaleSequencer {
     private var currentScale = "A"
     private var notesPlayedInScale = 0
     private var notesPlayedInOctave = 0
@@ -21,9 +22,9 @@ class ShiftsScaleSequencer(private val modeShifts: List<List<Int>>) : ScaleSeque
     }
 
     override fun getChord(): List<Pair<String, Int>> {
-        val base = Pair(MidiNotes.minorScaleNotes[currentScale]!![0], currentOctave)
-        val third = Pair(MidiNotes.minorScaleNotes[currentScale]!![2], currentOctave)
-        val fifth = Pair(MidiNotes.minorScaleNotes[currentScale]!![5], currentOctave)
+        val base = Pair(scaleNotes[currentScale]!![0], currentOctave)
+        val third = Pair(scaleNotes[currentScale]!![2], currentOctave)
+        val fifth = Pair(scaleNotes[currentScale]!![5], currentOctave)
         return listOf(base, third, fifth)
     }
 
@@ -33,7 +34,7 @@ class ShiftsScaleSequencer(private val modeShifts: List<List<Int>>) : ScaleSeque
         } else {
             listOf(0, 4, 5, 7).random()
         }
-        val scale = MidiNotes.minorScaleNotes[currentScale] ?: error("Failed to get scale!")
+        val scale = scaleNotes[currentScale] ?: error("Failed to get scale!")
         if (Random.nextBoolean()) {
             if (previousNoteIndex == 0 || previousNoteIndex == 7) {
                 val octaveShift =
@@ -50,7 +51,7 @@ class ShiftsScaleSequencer(private val modeShifts: List<List<Int>>) : ScaleSeque
     private fun tryToChangeScale() {
         val pr = notesPlayedInScale * 0.001
         if (Random.nextFloat() < pr) {
-            currentScale = MidiNotes.minorScaleNotes.keys.random()
+            currentScale = scaleNotes.keys.random()
             logger.info("Changed scale to: $currentScale")
             notesPlayedInScale = 0
         }
@@ -59,6 +60,7 @@ class ShiftsScaleSequencer(private val modeShifts: List<List<Int>>) : ScaleSeque
     companion object {
         fun createMinorScaleSequencer(): ShiftsScaleSequencer =
             ShiftsScaleSequencer(
+                MidiNotes.minorScaleNotes,
                 listOf(
                     listOf(1, 2, 3, 4, 5, 6, 7),
                     listOf(3, 4),
@@ -73,6 +75,7 @@ class ShiftsScaleSequencer(private val modeShifts: List<List<Int>>) : ScaleSeque
 
         fun createMajorScaleSequencer(): ShiftsScaleSequencer =
             ShiftsScaleSequencer(
+                MidiNotes.majorScaleNotes,
                 listOf(
                     listOf(1, 2, 3, 4, 5, 6, 7),
                     listOf(),
