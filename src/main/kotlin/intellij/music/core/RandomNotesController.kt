@@ -7,21 +7,27 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class RandomNotesController(midiBackend: MidiBackend) {
-    val notesPlayer = MidiNotesPlayer(midiBackend)
+    private val notesPlayer = MidiNotesPlayer(midiBackend)
     private val circleSequencer = CircleOfFifthsSequencer()
     private var lastNoteTime = Date()
     private val config = MusicConfig.instance
 
+    companion object {
+        private const val INACTIVE_TIMEOUT = 130
+        private const val CHANGE_MODE_TIMEOUT = 900
+        const val BASE_NOTE_VELOCITY: Int = 200
+    }
+
     fun keyboardPressed(event: MusicKeyboardEvent) {
         circleSequencer.setCurrentScale(config.algorithmType == MusicAlgorithmType.RANDOM_MAJOR)
         val diff = TimeUnit.MILLISECONDS.toMillis(Date().time - lastNoteTime.time)
-        if(diff < 130) {
+        if(diff < INACTIVE_TIMEOUT) {
             return
         }
-        else if(MusicConfig.instance.algorithmType == MusicAlgorithmType.RANDOM_BOTH && diff > 900) {
+        else if(MusicConfig.instance.algorithmType == MusicAlgorithmType.RANDOM_BOTH && diff > CHANGE_MODE_TIMEOUT) {
             circleSequencer.changeMode()
         }
-        if (diff > 900) {
+        if (diff > CHANGE_MODE_TIMEOUT) {
             notesPlayer.ensureResetNotes()
         }
         if(event.numberModifiers != 0) {
@@ -31,9 +37,5 @@ class RandomNotesController(midiBackend: MidiBackend) {
         }
         notesPlayer.playNote(circleSequencer.nextNote(), BASE_NOTE_VELOCITY)
         lastNoteTime = Date()
-    }
-
-    companion object {
-        const val BASE_NOTE_VELOCITY: Int = 200
     }
 }
