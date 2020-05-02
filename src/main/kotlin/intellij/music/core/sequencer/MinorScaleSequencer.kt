@@ -1,5 +1,6 @@
 package intellij.music.core.sequencer
 
+import com.intellij.openapi.diagnostic.logger
 import intellij.music.core.MidiNotes
 import kotlin.random.Random
 
@@ -9,6 +10,8 @@ class MinorScaleSequencer: ScaleSequencer {
     private var notesPlayedInOctave = 0
     private var currentOctave = listOf(MidiNotes.BASE_OCTAVE, MidiNotes.BASE_OCTAVE + 1).random()
     private var previousNoteIndex: Int = 0
+
+    private val logger = logger<MinorScaleSequencer>()
 
     override fun nextNote(previousNote: Pair<String, Int>): Pair<String, Int> {
         notesPlayedInOctave += 1
@@ -49,7 +52,7 @@ class MinorScaleSequencer: ScaleSequencer {
         val pr = notesPlayedInScale * 0.001
         if (Random.nextFloat() < pr) {
             currentScale = MidiNotes.minorScaleNotes.keys.random()
-            println("Changed scale to: $currentScale")
+            logger.info("Changed scale to: $currentScale")
             notesPlayedInScale = 0
         }
     }
