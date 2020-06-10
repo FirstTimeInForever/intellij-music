@@ -89,7 +89,7 @@ class UserDirectoryLoader {
         val defaultMidiDir = File(System.getProperty("user.home"), ".intellij-fancy-music-plugin")
 
         const val soundFontUrl = "https://raw.githubusercontent.com/urish/cinto/master/media/FluidR3%20GM.sf2"
-        const val initialMidiFilesUrl = "https://raw.githubusercontent.com/FirstTimeInForever/intellij-music/master/plugin/assets/"
+        const val initialMidiFilesUrl = "https://raw.githubusercontent.com/FirstTimeInForever/intellij-music/master/assets/"
         val initialMidiFiles = listOf(
             "All_Star.mid",
             "Birds_Flying_High.mid",
