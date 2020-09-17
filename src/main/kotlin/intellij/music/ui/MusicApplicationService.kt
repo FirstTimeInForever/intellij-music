@@ -7,12 +7,9 @@ import intellij.music.core.MusicController
 @Service
 class MusicApplicationService {
     val controller: MusicController = MusicController()
+    private val keyEventListener = MusicKeyEventListener()
 
-    init {
-        MusicKeyEventListener().initKeyListener()
-    }
-
-    fun keyboardPressed(event: MusicKeyboardEvent) {
+    fun keyPressed(event: MusicKeyboardEvent) {
         ApplicationManager.getApplication().executeOnPooledThread {
             controller.keyboardPressed(event)
         }

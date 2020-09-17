@@ -6,38 +6,34 @@ import intellij.music.settings.MusicSettings
 import java.awt.event.KeyEvent
 
 class MusicKeyEventListener {
-    private val config = service<MusicSettings>()
+    private val settings = service<MusicSettings>()
 
-    fun initKeyListener() {
-        IdeEventQueue.getInstance().addPostprocessor({ e ->
-            if (e is KeyEvent && config.enabled && !config.onlyInEditor) {
-                onKeyEvent(e)
+    init {
+        IdeEventQueue.getInstance().addPostprocessor({ event ->
+            if (event is KeyEvent && settings.enabled && !settings.onlyInEditor) {
+                onKeyEvent(event)
             }
             false
         }, null)
     }
 
-    private fun onKeyEvent(e: KeyEvent) {
-        val keyChar = e.keyChar
-        val keyCode = e.keyCode
-        if (e.id == KeyEvent.KEY_PRESSED && keyChar != KeyEvent.CHAR_UNDEFINED) {
-            val layout = if (e.keyCode == e.extendedKeyCode) {
+    private fun onKeyEvent(event: KeyEvent) {
+        if (event.id == KeyEvent.KEY_PRESSED && event.keyChar != KeyEvent.CHAR_UNDEFINED) {
+            val layout = if (event.keyCode == event.extendedKeyCode) {
                 "en"
-            } else {
-                "ru"
-            }
-
-            val numberModifiers = getNumberModifiers(e)
-            val event = MusicKeyboardEvent(keyChar, keyCode, layout, numberModifiers)
-            service<MusicApplicationService>().keyboardPressed(event)
+            } else "ru"
+            val numberModifiers = getNumberModifiers(event)
+            service<MusicApplicationService>().keyPressed(
+                MusicKeyboardEvent(event.keyChar, event.keyCode, layout, numberModifiers)
+            )
         }
     }
 
-    private fun getNumberModifiers(e: KeyEvent): Int {
+    private fun getNumberModifiers(event: KeyEvent): Int {
         var numberModifiers = 0
-        if (e.isControlDown) ++numberModifiers
-        if (e.isAltDown) ++numberModifiers
-        if (e.isMetaDown) ++numberModifiers
+        if (event.isControlDown) ++numberModifiers
+        if (event.isAltDown) ++numberModifiers
+        if (event.isMetaDown) ++numberModifiers
         return numberModifiers
     }
 }
