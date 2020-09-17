@@ -1,7 +1,7 @@
 package intellij.music.core
 
 import intellij.music.core.sequencer.CircleOfFifthsSequencer
-import intellij.music.ui.MusicConfig
+import intellij.music.settings.MusicConfig
 import intellij.music.ui.MusicKeyboardEvent
 import java.util.*
 import java.util.concurrent.TimeUnit

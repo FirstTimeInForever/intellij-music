@@ -6,6 +6,7 @@ import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.openapi.vfs.VirtualFileManager
 import intellij.music.core.MusicAlgorithmType
+import intellij.music.settings.MusicConfig
 import org.jetbrains.annotations.NonNls
 import java.awt.Component
 import java.io.File

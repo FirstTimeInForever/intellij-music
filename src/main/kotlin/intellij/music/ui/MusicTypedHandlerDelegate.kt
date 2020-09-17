@@ -5,6 +5,7 @@ import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.EditorKind
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
+import intellij.music.settings.MusicConfig
 
 // https://intellij-support.jetbrains.com/hc/en-us/community/posts/206756295-TypedActionHandler-with-default-typing-behavior?flash_digest=fd9d93d7fb0d9a406689b0c9f6c765be9dca66c8
 class MusicTypedHandlerDelegate : TypedHandlerDelegate() {

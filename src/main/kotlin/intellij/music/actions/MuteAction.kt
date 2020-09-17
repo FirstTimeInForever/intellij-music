@@ -1,8 +1,8 @@
-package intellij.music.ui.actions
+package intellij.music.actions
 
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.ToggleAction
-import intellij.music.ui.MusicConfig
+import intellij.music.settings.MusicConfig
 
 class MuteAction : ToggleAction() {
     private val config = MusicConfig.instance

@@ -1,4 +1,4 @@
-package intellij.music.ui
+package intellij.music.settings
 
 import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.ServiceManager

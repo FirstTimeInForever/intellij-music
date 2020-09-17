@@ -10,28 +10,28 @@
     <depends>com.intellij.modules.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable displayName="Fancy Music Plugin" instance="intellij.music.ui.MusicConfigurable" />
-        <applicationService serviceImplementation="intellij.music.ui.MusicConfig" />
+        <applicationConfigurable displayName="Fancy Music Plugin" instance="intellij.music.settings.MusicConfigurable" />
+        <applicationService serviceImplementation="intellij.music.settings.MusicConfig" />
         <typedHandler implementation="intellij.music.ui.MusicTypedHandlerDelegate" />
     </extensions>
 
     <actions>
-        <action id="IntellijMusic.NextTrackAction" class="intellij.music.ui.actions.NextTrackAction"
+        <action id="IntellijMusic.NextTrackAction" class="intellij.music.actions.NextTrackAction"
                 text="Fancy Music: Next Track" icon="AllIcons.Icons.Ide.NextStep">
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
-        <action id="IntellijMusic.MuteAction" class="intellij.music.ui.actions.MuteAction"
+        <action id="IntellijMusic.MuteAction" class="intellij.music.actions.MuteAction"
                 text="Fancy Music: Toggle Mute" icon="AllIcons.Debugger.MuteBreakpoints">
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
-        <action id="IntellijMusic.SwitchMusicTypeAction" class="intellij.music.ui.actions.SwitchToSequentialAction"
+        <action id="IntellijMusic.SwitchMusicTypeAction" class="intellij.music.actions.SwitchToSequentialAction"
                 text="Fancy Music: Switch To Custom MIDI Music" />
-        <action id="intellij.music.ui.actions.SwitchToMinorScaleAction"
-                class="intellij.music.ui.actions.SwitchToMinorScaleAction" text="Fancy Music: Use Minor Scale"/>
-        <action id="intellij.music.ui.actions.SwitchToMajorScaleAction"
-                class="intellij.music.ui.actions.SwitchToMajorScaleAction" text="Fancy Music: Use Major Scale"/>
-        <action id="intellij.music.ui.actions.SwitchToRandomScaleAction"
-                class="intellij.music.ui.actions.SwitchToRandomScaleAction" text="Fancy Music: Switch To Random Scales"/>
+        <action id="intellij.music.actions.SwitchToMinorScaleAction"
+                class="intellij.music.actions.SwitchToMinorScaleAction" text="Fancy Music: Use Minor Scale"/>
+        <action id="intellij.music.actions.SwitchToMajorScaleAction"
+                class="intellij.music.actions.SwitchToMajorScaleAction" text="Fancy Music: Use Major Scale"/>
+        <action id="intellij.music.actions.SwitchToRandomScaleAction"
+                class="intellij.music.actions.SwitchToRandomScaleAction" text="Fancy Music: Switch To Random Scales"/>
     </actions>
 
     <application-components>

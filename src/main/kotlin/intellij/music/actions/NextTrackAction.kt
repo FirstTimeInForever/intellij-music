@@ -1,10 +1,10 @@
-package intellij.music.ui.actions
+package intellij.music.actions
 
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import intellij.music.core.MusicAlgorithmType
 import intellij.music.ui.MusicApplicationComponent
-import intellij.music.ui.MusicConfig
+import intellij.music.settings.MusicConfig
 
 class NextTrackAction : AnAction() {
     private val config = MusicConfig.instance

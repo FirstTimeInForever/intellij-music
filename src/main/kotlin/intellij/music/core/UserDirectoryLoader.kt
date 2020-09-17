@@ -5,7 +5,7 @@ import com.intellij.openapi.progress.PerformInBackgroundOption
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
-import intellij.music.ui.MusicConfig
+import intellij.music.settings.MusicConfig
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL

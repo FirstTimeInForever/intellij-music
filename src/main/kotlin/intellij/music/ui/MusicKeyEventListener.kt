@@ -1,6 +1,7 @@
 package intellij.music.ui
 
 import com.intellij.ide.IdeEventQueue
+import intellij.music.settings.MusicConfig
 import java.awt.event.KeyEvent
 
 class MusicKeyEventListener {
