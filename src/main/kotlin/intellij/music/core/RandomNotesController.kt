@@ -1,7 +1,8 @@
 package intellij.music.core
 
+import com.intellij.openapi.components.service
 import intellij.music.core.sequencer.CircleOfFifthsSequencer
-import intellij.music.settings.MusicConfig
+import intellij.music.settings.MusicSettings
 import intellij.music.ui.MusicKeyboardEvent
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -10,7 +11,7 @@ class RandomNotesController(midiBackend: MidiBackend) {
     private val notesPlayer = MidiNotesPlayer(midiBackend)
     private val circleSequencer = CircleOfFifthsSequencer()
     private var lastNoteTime = Date()
-    private val config = MusicConfig.instance
+    private val config = service<MusicSettings>()
 
     companion object {
         private const val INACTIVE_TIMEOUT = 130
@@ -24,7 +25,7 @@ class RandomNotesController(midiBackend: MidiBackend) {
         if(diff < INACTIVE_TIMEOUT) {
             return
         }
-        else if(MusicConfig.instance.algorithmType == MusicAlgorithmType.RANDOM_BOTH && diff > CHANGE_MODE_TIMEOUT) {
+        else if(config.algorithmType == MusicAlgorithmType.RANDOM_BOTH && diff > CHANGE_MODE_TIMEOUT) {
             circleSequencer.changeMode()
         }
         if (diff > CHANGE_MODE_TIMEOUT) {

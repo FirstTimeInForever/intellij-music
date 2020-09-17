@@ -1,18 +1,19 @@
 package intellij.music.core
 
+import com.intellij.openapi.components.service
 import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.progress.PerformInBackgroundOption
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
-import intellij.music.settings.MusicConfig
+import intellij.music.settings.MusicSettings
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
 import java.nio.channels.Channels
 
 class UserDirectoryLoader {
-    private val config = MusicConfig.instance
+    private val config = service<MusicSettings>()
     private val pluginDirectory = defaultMidiDir
     private val soundFontFile = File(pluginDirectory, "soundfont.sf2")
     val userFiles = mutableListOf<File>()

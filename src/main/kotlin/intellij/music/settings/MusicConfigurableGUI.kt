@@ -6,7 +6,7 @@ import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.ui.TextFieldWithBrowseButton
 import com.intellij.openapi.vfs.VirtualFileManager
 import intellij.music.core.MusicAlgorithmType
-import intellij.music.settings.MusicConfig
+import intellij.music.settings.MusicSettings
 import org.jetbrains.annotations.NonNls
 import java.awt.Component
 import java.io.File
@@ -60,23 +60,23 @@ class MusicConfigurableGUI {
         dirConsumer(resultPath)
     }
 
-    fun isModified(config: MusicConfig): Boolean {
-        return enabled.isSelected != config.enabled
-                || onlyInEditor.isSelected != config.onlyInEditor
-                || currentAlgorithmType() != config.algorithmType
-                || midiDirChoose.text != config.midiDir
+    fun isModified(settings: MusicSettings): Boolean {
+        return enabled.isSelected != settings.enabled
+                || onlyInEditor.isSelected != settings.onlyInEditor
+                || currentAlgorithmType() != settings.algorithmType
+                || midiDirChoose.text != settings.midiDir
     }
 
-    fun loadFromConfig(config: MusicConfig) {
-        midiDirChoose.text = config.midiDir
+    fun loadFromConfig(settings: MusicSettings) {
+        midiDirChoose.text = settings.midiDir
 
-        enabled.isSelected = config.enabled
-        onlyInEditor.isSelected = config.onlyInEditor
+        enabled.isSelected = settings.enabled
+        onlyInEditor.isSelected = settings.onlyInEditor
 
-        musicTypeRandomMinor.isSelected = config.algorithmType == MusicAlgorithmType.RANDOM_MINOR
-        musicTypeRandomMajor.isSelected = config.algorithmType == MusicAlgorithmType.RANDOM_MAJOR
-        musicTypeRandomBoth.isSelected = config.algorithmType == MusicAlgorithmType.RANDOM_BOTH
-        musicTypeMidi.isSelected = config.algorithmType == MusicAlgorithmType.SEQUENTIAL
+        musicTypeRandomMinor.isSelected = settings.algorithmType == MusicAlgorithmType.RANDOM_MINOR
+        musicTypeRandomMajor.isSelected = settings.algorithmType == MusicAlgorithmType.RANDOM_MAJOR
+        musicTypeRandomBoth.isSelected = settings.algorithmType == MusicAlgorithmType.RANDOM_BOTH
+        musicTypeMidi.isSelected = settings.algorithmType == MusicAlgorithmType.SEQUENTIAL
 
         updateEnabled()
     }
@@ -91,12 +91,12 @@ class MusicConfigurableGUI {
         midiDirChoose.isEnabled = isEnabled && musicTypeMidi.isSelected
     }
 
-    fun saveToConfig(config: MusicConfig) {
-        config.enabled = enabled.isSelected
-        config.onlyInEditor = onlyInEditor.isSelected
-        config.algorithmType = currentAlgorithmType()
+    fun saveToConfig(settings: MusicSettings) {
+        settings.enabled = enabled.isSelected
+        settings.onlyInEditor = onlyInEditor.isSelected
+        settings.algorithmType = currentAlgorithmType()
 
-        config.midiDir = midiDirChoose.text
+        settings.midiDir = midiDirChoose.text
     }
 
     private fun currentAlgorithmType(): MusicAlgorithmType {

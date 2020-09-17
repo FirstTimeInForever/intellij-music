@@ -11,7 +11,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationConfigurable displayName="Fancy Music Plugin" instance="intellij.music.settings.MusicConfigurable" />
-        <applicationService serviceImplementation="intellij.music.settings.MusicConfig" />
+        <applicationService serviceImplementation="intellij.music.settings.MusicSettings" />
         <typedHandler implementation="intellij.music.ui.MusicTypedHandlerDelegate" />
     </extensions>
 
@@ -33,10 +33,4 @@
         <action id="intellij.music.actions.SwitchToRandomScaleAction"
                 class="intellij.music.actions.SwitchToRandomScaleAction" text="Fancy Music: Switch To Random Scales"/>
     </actions>
-
-    <application-components>
-        <component>
-            <implementation-class>intellij.music.ui.MusicApplicationComponent</implementation-class>
-        </component>
-    </application-components>
 </idea-plugin>

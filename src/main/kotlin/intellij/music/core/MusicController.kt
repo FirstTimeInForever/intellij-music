@@ -1,6 +1,7 @@
 package intellij.music.core
 
-import intellij.music.settings.MusicConfig
+import com.intellij.openapi.components.service
+import intellij.music.settings.MusicSettings
 import intellij.music.ui.MusicKeyboardEvent
 import java.io.File
 
@@ -8,7 +9,7 @@ import java.io.File
     Base controller class.
  */
 class MusicController {
-    private val config = MusicConfig.instance
+    private val config = service<MusicSettings>()
     private val keyboardStorage: KeyboardStorage = KeyboardStorage(10.0)
     private val userFiles = UserDirectoryLoader()
     private var isSoundFontLoaded: Boolean = false

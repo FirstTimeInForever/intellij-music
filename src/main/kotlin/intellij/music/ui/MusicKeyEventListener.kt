@@ -1,11 +1,12 @@
 package intellij.music.ui
 
 import com.intellij.ide.IdeEventQueue
-import intellij.music.settings.MusicConfig
+import com.intellij.openapi.components.service
+import intellij.music.settings.MusicSettings
 import java.awt.event.KeyEvent
 
 class MusicKeyEventListener {
-    private val config = MusicConfig.instance
+    private val config = service<MusicSettings>()
 
     fun initKeyListener() {
         IdeEventQueue.getInstance().addPostprocessor({ e ->
@@ -28,7 +29,7 @@ class MusicKeyEventListener {
 
             val numberModifiers = getNumberModifiers(e)
             val event = MusicKeyboardEvent(keyChar, keyCode, layout, numberModifiers)
-            MusicApplicationComponent.instance.keyboardPressed(event)
+            service<MusicApplicationService>().keyboardPressed(event)
         }
     }
 
